@@ -39,7 +39,7 @@ jobs:
         run: snyk iac test --severity-threshold=high --report # || true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        working-directory: /website/terraform
+        working-directory: ./website/terraform
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2

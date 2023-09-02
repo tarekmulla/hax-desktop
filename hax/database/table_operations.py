@@ -10,13 +10,11 @@ def run(command: str, args: tuple = ()):
   """run SQL command"""
   if "select" in command.lower():
     result = db.fetch(command, args)
-    return result
   else:
     result = db.run(command, args)
     if not result:
       raise SQLException("Failed execuation command")
-    else:
-      return True
+  return result
 
 
 def select_all(table: Table):

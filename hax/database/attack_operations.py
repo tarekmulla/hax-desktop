@@ -2,7 +2,7 @@
 from classes.attack import Attack
 from classes.enums import AttackType, RequestType, Table
 from database.db import DB
-from database.table_operation import run, select_all, select_item
+from database.table_operations import run, select_all, select_item
 
 db = DB()
 

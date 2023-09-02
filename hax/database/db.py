@@ -2,7 +2,7 @@
 from sqlite3 import Connection, connect
 
 
-class DB(object):
+class DB:
   """database operations"""
 
   def __new__(cls):
@@ -58,4 +58,4 @@ class DB(object):
       cur.close()
       return result
     except Exception:
-      return None
+      return []

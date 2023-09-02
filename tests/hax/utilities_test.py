@@ -3,7 +3,7 @@
 
 from classes.attack import Attack
 from classes.enums import AttackType, RequestType
-from exception.connection import ConnectionFailedException
+from exceptions.connection import ConnectionFailedException
 from pytest import raises
 
 

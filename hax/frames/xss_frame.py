@@ -4,7 +4,7 @@ from os.path import abspath, dirname
 from tkinter import INSERT, Tk
 
 from attacks.xss.xss_attack import XssAttack
-from classes.attack_request import AttackRequest, AttackType, RequestType
+from classes.enums import AttackType, RequestType
 from frames.base_frame import AttackFrame
 
 
@@ -55,6 +55,5 @@ class XssFrame(AttackFrame):
     request_type = RequestType[self.value_request_type.get()]
     parameters = self.input_parameters.get().split(",")
     placeholder_text = self.input_placeholder_text.get()
-    request = AttackRequest(url, request_type, parameters, AttackType.XSS)
-    self.attack = XssAttack(request)
+    self.attack = XssAttack(url, request_type, parameters, AttackType.XSS)
     self.start_attack(placeholder_text)

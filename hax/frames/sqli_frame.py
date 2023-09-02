@@ -35,7 +35,7 @@ class SqliFrame(AttackFrame):
     (self.opt_request_type, self.value_request_type) = self.add_option("Request type", *(RequestType.get_names()))
     self.opt_request_type.grid(row=3, column=1, columnspan=2, sticky="w")
 
-    self.add_button("Start Attack", command=self.init_attack).grid(row=4, column=0, columnspan=3)
+    self.add_button("Start Attack", self.init_attack).grid(row=4, column=0, columnspan=3)
 
     self.progbar_attacks = self.add_progressbar(500)
     self.progbar_attacks.grid(row=5, column=0, columnspan=3, pady=(10, 10))

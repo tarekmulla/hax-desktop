@@ -82,8 +82,10 @@ class BaseFrame(Frame):
     entry = self.add_widget(Entry, **parameters)
     return entry
 
-  def add_button(self, text, **parameters):
+  def add_button(self, text, click_func, **parameters):
     """"Add button to the frame in a specific grid cell"""
+    if "command" not in parameters:
+      parameters["command"] = click_func
     btn = self.add_widget(Button, text=text, **parameters)
     return btn
 

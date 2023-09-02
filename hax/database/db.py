@@ -32,6 +32,7 @@ class DB(object):
     """Execuate non-select database command"""
     is_succ = False
     try:
+      command.replace("\n", "")
       cur = self.con.cursor()
       if args:
         cur.execute(command, args)
@@ -47,6 +48,7 @@ class DB(object):
   def fetch(self, command: str, args: tuple) -> list:
     """Execuate select database command"""
     try:
+      command.replace("\n", "")
       cur = self.con.cursor()
       if args:
         cur.execute(command, args)

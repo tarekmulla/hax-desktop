@@ -6,7 +6,7 @@ from exceptions.database import SQLException
 db = DB()
 
 
-def run(command: str, args: tuple = None):
+def run(command: str, args: tuple = ()):
   """run SQL command"""
   if "select" in command.lower():
     result = db.fetch(command, args)
@@ -23,3 +23,14 @@ def select_all(table: Table):
   """Select all records from a table"""
   command = f"SELECT * FROM {Table(table).name}"  # noqa: S608
   return run(command)
+
+
+def select_item(table: Table, criteria: list):
+  """Select record from a table using criteria"""
+  condition = ",".join([f"{item[0]} = ?" for item in criteria])
+  command = f"SELECT * FROM {Table(table).name} WHERE {condition}"  # noqa: S608
+  args = tuple(item[1] for item in criteria)
+  result = run(command, args)
+  if len(result) > 1:
+    raise SQLException(command)
+  return result[0]

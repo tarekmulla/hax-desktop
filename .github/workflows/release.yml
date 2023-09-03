@@ -36,8 +36,9 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install dependencies and tools
         run: |
+          brew install create-dmg
           python -m pip install --upgrade pip
           pip install -r hax/requirements.txt pyinstaller
 

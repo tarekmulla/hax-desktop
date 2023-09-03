@@ -1,6 +1,6 @@
 """Module of the main application form"""
 from os.path import abspath, dirname, isfile
-from tkinter import Tk, PhotoImage
+from tkinter import PhotoImage, Tk
 
 from classes.enums import Windows
 from frames.about_frame import AboutFrame

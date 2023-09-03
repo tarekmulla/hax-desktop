@@ -51,6 +51,8 @@ class MainMenu(Frame):
 
   def mouse_click(self, event, window: Windows, click_event_func):
     """Call when a mouse click the menu item"""
+    if self.current_window == window:
+      return
     self.current_window = window
     if self.current_item:
       self.current_item["bg"] = self.master.app_config["style"]["secondary_color"]  # type: ignore[attr-defined]

@@ -5,7 +5,7 @@ from tkinter import INSERT, Tk
 
 from attacks.sqli.sqli_attack import SqliAttack
 from classes.enums import AttackType, RequestType
-from frames.base_frame import AttackFrame
+from frames.attack_frame import AttackFrame
 
 
 class SqliFrame(AttackFrame):

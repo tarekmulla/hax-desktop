@@ -5,7 +5,7 @@ from tkinter import INSERT, Tk
 
 from attacks.xss.xss_attack import XssAttack
 from classes.enums import AttackType, RequestType
-from frames.base_frame import AttackFrame
+from frames.attack_frame import AttackFrame
 
 
 class XssFrame(AttackFrame):

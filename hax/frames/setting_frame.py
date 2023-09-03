@@ -21,7 +21,9 @@ class SettingFrame(BaseFrame):
     self.aws_secret_access_key = self.add_entry(width=40)
     self.aws_secret_access_key.grid(row=1, column=1)
 
-    self.add_button("Save", self.save_setting).grid(row=2, column=1)
+    save_btn = self.add_button("Save", self.save_setting)
+    save_btn.grid(row=2, column=1)
+    save_btn.focus_set()
 
   def set_default_input(self):
     """default value for the input"""

@@ -31,6 +31,4 @@ def select_item(table: Table, criteria: list):
   result = run(command, args)
   if len(result) > 1:
     raise SQLException(command)
-  elif not result:
-    return None
-  return result[0]
+  return result[0] if result else None

@@ -1,5 +1,4 @@
 """Module of the main application form"""
-from os.path import dirname
 from tkinter import PhotoImage, Tk
 
 from classes.enums import Windows
@@ -15,13 +14,11 @@ from frames.xss_frame import XssFrame
 class App(Tk):
   """The main application window"""
   def __init__(self):
-    self.base_dir = dirname(__file__)
     super().__init__()
     self.app_config = AppConfig()
     self.main_menu = MainMenu(master=self)
     self.menubar = MenuBar(master=self)
     self.__init_components__()
-    self.current_frame = None
 
   def __init_components__(self):
     """Initialize the main form GUI components"""
@@ -40,6 +37,9 @@ class App(Tk):
     # init the main menu and place it in hte main window
     self.main_menu.init_items(self._fill_frame)
     self.main_menu.grid(column=0, row=0, sticky="nsw")
+
+    # No frame is showing when app launch
+    self.current_frame = None
 
   def _fill_frame(self, event, window: Windows):
     # pylint: disable=unused-argument

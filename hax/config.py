@@ -3,10 +3,11 @@ from enum import Enum
 from os.path import dirname, exists
 
 from classes.enums import Color
+from exceptions.application import ConfigException
 from yaml import safe_load
 
 
-class AppConfig(dict):
+class AppConfig:
   """The application configuration singleton class"""
 
   class Type(Enum):
@@ -34,30 +35,44 @@ class AppConfig(dict):
     if exists(file_path):
       with open(file_path, encoding="UTF-8") as config:
         return safe_load(config)
-    else:
-      raise FileNotFoundError(f"Application {config_type.value} config file not found in path: {file_path}")
+    raise FileNotFoundError(f"Application {config_type.value} config file not found in path: {file_path}")
 
   def get_app_initial_size(self):
     """get the application initial dimension"""
-    return self.design["size"]
+    if hasattr(self, "design") and "size" in self.design:
+      return self.design["size"]
+    raise ConfigException("size")
 
   def get_icon(self):
     """get the logo image path"""
-    return f"{self.base_dir}/{self.design['images']['icon']}"
+    if hasattr(self, "design") and "images" in self.design and "icon" in self.design['images']:
+      return f"{self.base_dir}/{self.design['images']['icon']}"
+    raise ConfigException("icon")
 
   def get_logo(self):
     """get the logo image path"""
-    return f"{self.base_dir}/{self.design['images']['logo']}"
+    if hasattr(self, "design") and "images" in self.design and "logo" in self.design['images']:
+      return f"{self.base_dir}/{self.design['images']['logo']}"
+    raise ConfigException("logo")
 
   def get_images_path(self):
     """get all images path"""
-    return f"{self.base_dir}/{self.design['images']['path']}"
+    if hasattr(self, "design") and "images" in self.design and "path" in self.design['images']:
+      return f"{self.base_dir}/{self.design['images']['path']}"
+    raise ConfigException("logo")
 
   def get_image_path(self, image_name):
     """get specific image path"""
-    return f"{self.get_images_path()}/{image_name}"
+    if image_name:
+      image_path = f"{self.get_images_path()}/{image_name}"
+      if exists(image_path):
+        return image_path
+      raise FileNotFoundError(f"Couldn't find image {image_name} in path {self.get_images_path()}")
+    raise ValueError("Image name is not valid!")
 
   def get_color(self, color: Color):
     """Get the color code"""
     color_name = Color(color).name.lower()
-    return self.design["colors"][color_name]
+    if hasattr(self, "design") and "colors" in self.design and color_name in self.design['colors']:
+      return self.design["colors"][color_name]
+    raise ConfigException(color)

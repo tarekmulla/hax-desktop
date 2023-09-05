@@ -24,9 +24,6 @@ jobs:
         include:
           - os: macos-latest
             TARGET: macos
-            CMD_BUILD: >
-              pyinstaller --noconfirm --windowed --name="HaX" --icon="hax/static/images/icon.png" --add-data="hax/config.yml:." --add-data="hax/static:static" hax/main.py &&
-              ./scripts/bundle.sh
             OUT_FILE_NAME: HaX.dmg
             ASSET_MIME: application/octet-stream
 
@@ -47,7 +44,7 @@ jobs:
 
       - name: Package ${{matrix.TARGET}} version
         run: |
-          ${{matrix.CMD_BUILD}}
+          ./scripts/release.sh
 
       - name: Create Release
         id: create_release
@@ -67,6 +64,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/${{ matrix.OUT_FILE_NAME}}
+          asset_path: ./release/${{ matrix.OUT_FILE_NAME}}
           asset_name: ${{ matrix.OUT_FILE_NAME}}
           asset_content_type: ${{ matrix.ASSET_MIME}}

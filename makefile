@@ -7,6 +7,9 @@ create-env:
 install-tk:
 	@brew install python-tk
 
+test:
+	@pytest --cov=hax tests/
+
 run:
 	@python3 hax/main.py
 

@@ -1,7 +1,8 @@
 """The main menu of the application"""
 from tkinter import Frame, Label
 
-from classes.enums import Windows
+from classes.enums import Color, Windows
+from config import AppConfig
 from PIL import Image, ImageTk
 
 
@@ -17,7 +18,8 @@ class MainMenu(Frame):
 
   def __init__(self, master):
     self.master = master
-    super().__init__(master, bg=self.master.app_config["style"]["secondary_color"])
+    self.app_config = AppConfig()
+    super().__init__(master, bg=self.app_config.get_color(Color.SECONDARY))
     self.current_window = Windows.NONE
     self.current_item = Label()
 
@@ -34,7 +36,7 @@ class MainMenu(Frame):
     ]
 
     for item in self.menu_items:
-      btn_frame = Frame(self, bg=self.master.app_config["style"]["secondary_color"])
+      btn_frame = Frame(self, bg=self.app_config.get_color(Color.SECONDARY))
       btn_frame.grid(column=0)
       self.create_menu_item(btn_frame, f"{' '*5}{item.name}", item.image,
                             item.window, event_func).grid()
@@ -42,12 +44,12 @@ class MainMenu(Frame):
   def mouse_hover(self, event):
     """Call when a mouse hover on menu item"""
     if self.current_item is not event.widget:
-      event.widget["bg"] = self.master.app_config["style"]["hover_color"]
+      event.widget["bg"] = self.app_config.get_color(Color.HOVER)
 
   def mouse_leave(self, event):
     """Call when a mouse leave the menu item"""
     if self.current_item is not event.widget:
-      event.widget["bg"] = self.master.app_config["style"]["secondary_color"]
+      event.widget["bg"] = self.app_config.get_color(Color.SECONDARY)
 
   def mouse_click(self, event, window: Windows, click_event_func):
     """Call when a mouse click the menu item"""
@@ -55,23 +57,23 @@ class MainMenu(Frame):
       return
     self.current_window = window
     if self.current_item:
-      self.current_item["bg"] = self.master.app_config["style"]["secondary_color"]  # type: ignore[attr-defined]
+      self.current_item["bg"] = self.app_config.get_color(Color.SECONDARY)  # type: ignore[attr-defined]
     self.current_item = event.widget
-    self.current_item["bg"] = self.master.app_config["style"]["hover_color"]  # type: ignore[attr-defined]
+    self.current_item["bg"] = self.app_config.get_color(Color.HOVER)  # type: ignore[attr-defined]
     click_event_func(event, window)
 
   def create_menu_item(self, parent, text, image, window, click_event_func):
     """Create Button label"""
     if image and text:
-      img = ImageTk.PhotoImage((Image.open(f"{self.master.base_dir}{self.master.app_config['images']['path']}/{image}")).resize((30, 30)))
+      img = ImageTk.PhotoImage((Image.open(self.app_config.get_image_path(image))).resize((30, 30)))
       btn_lbl = Label(parent, width=200, height=50, text=text, image=img, compound='left',
-                      bg=self.master.app_config["style"]["secondary_color"],
-                      foreground=self.master.app_config["style"]["forth_color"],
+                      bg=self.app_config.get_color(Color.SECONDARY),
+                      foreground=self.app_config.get_color(Color.FORTH),
                       anchor="w", cursor="hand2")
       btn_lbl.image = img
       btn_lbl.bind("<Button-1>", lambda e: self.mouse_click(e, window, click_event_func))
       btn_lbl.bind("<Enter>", self.mouse_hover)
       btn_lbl.bind("<Leave>", self.mouse_leave)
     else:
-      btn_lbl = Label(parent, height=3, bg=self.master.app_config["style"]["secondary_color"])
+      btn_lbl = Label(parent, height=3, bg=self.app_config.get_color(Color.SECONDARY))
     return btn_lbl

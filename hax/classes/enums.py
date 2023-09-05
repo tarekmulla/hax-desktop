@@ -33,3 +33,13 @@ class Table(Enum):
   """All tables in the database"""
   SETTING = 1
   ATTACK = 2
+
+
+class Color(Enum):
+  """The application color types"""
+  PRIMARY = 1
+  SECONDARY = 2
+  THIRD = 3
+  FORTH = 4
+  BORDER = 5
+  HOVER = 6

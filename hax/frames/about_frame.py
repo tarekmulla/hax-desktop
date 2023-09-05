@@ -1,25 +1,20 @@
-"""About frmae"""
+"""About frame to show information about the application"""
 from frames.base_frame import BaseFrame
-
-ABOUT_TXT = """
-HaX is an AI-powered Cybersecurity tool designed to detect website vulnerabilities.
-Its cloud connection enhances capabilities for advanced analytics and modeling.
-
-Crafted by TLabs, this tool is open-source, operating under the GPL-3.0 license.
-
-For more details please visit:
-"""
-LINK = "https://haxsec.com"
 
 
 class AboutFrame(BaseFrame):
-  """About frame"""
+  """About frame to show information about the application"""
   def __init__(self, master):
     super().__init__(master, "About HaX")
 
   def __init_frame__(self):
     super().__init_frame__()
+    link = self.app_config.general["domain"]
+    about = self.app_config.general["about"]
+
     self.columnconfigure(0, weight=1)
-    self.add_image(self.master.base_dir + self.master.app_config["images"]["logo"], 0, 0, pady=(25, 0))
-    self.add_label(ABOUT_TXT, justify="center", wraplength=550).grid(row=1, column=0)
-    self.add_link(LINK, LINK, 2, 0)
+    self.add_image(self.app_config.get_logo(), 0, 0, pady=(25, 0))
+    self.add_label(about, justify="center", wraplength=550).grid(row=1, column=0)
+
+    self.add_link(link, link, 2, 0)
+    self.add_link(link, link, 2, 0)

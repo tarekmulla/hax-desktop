@@ -9,6 +9,7 @@ from frames.setting_frame import SettingFrame
 from frames.sqli_frame import SqliFrame
 from frames.xss_frame import XssFrame
 from utilities.config import get_app_initial_size, get_icon
+from utilities.log import LogLevel, log_msg
 
 
 class App(Tk):
@@ -63,7 +64,10 @@ class App(Tk):
 
     # show the frame into the main window
     self.current_frame.grid(row=0, column=1, sticky="nsew")
+    log_msg(f"{window} frame opened", LogLevel.INFO)
 
   def run(self):
     """run the main application interface"""
+    log_msg("Application Start")
     self.mainloop()
+    log_msg("Application End")

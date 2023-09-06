@@ -5,6 +5,7 @@ from sqlite3 import DatabaseError, IntegrityError, connect
 
 from classes.exception.database import DBException
 from utilities.config import DB, get_db_path
+from utilities.log import LogLevel, log_msg
 
 
 def execuate(command: str, args, with_commit: bool = False):
@@ -18,13 +19,20 @@ def execuate(command: str, args, with_commit: bool = False):
         cur.execute(command)
       if with_commit:
         con.commit()
+    log_msg(f"command [{command}] execuated successfully", LogLevel.INFO)
     return cur
   except IntegrityError as ex:
-    raise DBException(f"Can not insert [{args}] twice", ex.args) from ex
+    message = f"Can not insert [{args}] twice"
+    log_msg(message, LogLevel.CRIT)
+    raise DBException(message, ex.args) from ex
   except DatabaseError as ex:
-    raise DBException(f"Database error while execuating command [{command}] with args: [{args}]", ex.args) from ex
+    message = f"Database error while execuating command [{command}] with args: [{args}]"
+    log_msg(message, LogLevel.CRIT)
+    raise DBException(message, ex.args) from ex
   except Exception as ex:
-    raise DBException(f"Failed execuating command [{command}] with args: [{args}]", ex.args) from ex
+    message = f"Failed execuating command [{command}] with args: [{args}]"
+    log_msg(message, LogLevel.CRIT)
+    raise DBException(message, ex.args) from ex
 
 
 def run(command: str, args: tuple) -> bool:

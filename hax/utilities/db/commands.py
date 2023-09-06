@@ -12,7 +12,7 @@ def run_sql(command: str, args: tuple = ()):
   if command.lower().strip().startswith("select"):
     result = fetch(command, args)
   else:
-    result = run(command, args)
+    result = run(command, args)  # type: ignore
     if not result:
       raise SQLException(f"Failed execuation SQL command [{command}]")
   return result

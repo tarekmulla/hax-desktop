@@ -13,7 +13,8 @@ def load_config(config_type) -> dict:
   file_path = f"{BASE_DIR}/.config/{config_type.value}"
   if exists(file_path):
     with open(file_path, encoding="UTF-8") as config:
-      return safe_load(config)
+      data: dict = safe_load(config)
+      return data
   raise FileNotFoundError(f"Application {config_type.value} config file not found in path: {file_path}")
 
 
@@ -73,4 +74,4 @@ def get_color(color: Color):
   color_name = Color(color).name.lower()
   if "colors" in DESIGN and color_name in DESIGN['colors']:
     return DESIGN["colors"][color_name]
-  raise ConfigException(color)
+  raise ConfigException(color_name)

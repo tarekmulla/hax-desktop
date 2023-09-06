@@ -49,7 +49,8 @@ class AttackFrame(BaseFrame):
     response_result += f"PAYLOAD: {payload}\n"
     response_result += f"REQUEST URL: {attack.response.request.url}\n"
     response_result += f"REQUEST HEADERS: {attack.response.request.headers}\n"
-    response_result += f"REQUEST BODY: {attack.response.request.body}\n"
+    req_body = str(attack.response.request.body)
+    response_result += f"REQUEST BODY: {req_body}\n"
     if attack.is_success:
       response_result += "The attack has succeded\n"
     else:

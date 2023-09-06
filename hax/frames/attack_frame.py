@@ -3,6 +3,7 @@ from tkinter import END
 
 from classes.attack import Attack
 from frames.base_frame import BaseFrame
+from utilities.config import BASE_DIR
 
 
 class AttackFrame(BaseFrame):
@@ -13,7 +14,7 @@ class AttackFrame(BaseFrame):
   def __init__(self, master, title: str, payloads_file: str):
     super().__init__(master=master, title=title)
     self.attack = None
-    self.payloads_path = f"{self.app_config.base_dir}/.payloads/{payloads_file}"
+    self.payloads_path = f"{BASE_DIR}/.payloads/{payloads_file}"
 
   def __init_frame__(self):
     """Initialize frame components"""

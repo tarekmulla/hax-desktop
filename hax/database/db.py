@@ -2,30 +2,29 @@
 from sqlite3 import DatabaseError, IntegrityError, connect
 
 from exceptions.database import DBException
-from utilities.config import AppConfig
+from utilities.config import DB, get_db_path
 
 
-class DB:
+class Db:
   """database operations"""
 
   def __new__(cls):
     if not hasattr(cls, "instance"):
-      cls.instance = super(DB, cls).__new__(cls)
+      cls.instance = super(Db, cls).__new__(cls)
     return cls.instance
 
   def __init__(self):
-    self.app_config = AppConfig()
     self.__create_tables__()
 
   def __create_tables__(self):
     """Create tables"""
-    self.run(self.app_config.db["attack"], None)
-    self.run(self.app_config.db["setting"], None)
+    self.run(DB["attack"], None)
+    self.run(DB["setting"], None)
 
   def _execuate(self, command: str, args, with_commit: bool = False):
     """Execuate SQL command"""
     try:
-      with connect(self.app_config.get_db_path()) as con:
+      with connect(get_db_path()) as con:
         cur = con.cursor()
         if args:
           cur.execute(command, args)

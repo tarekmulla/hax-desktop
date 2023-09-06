@@ -2,6 +2,14 @@
 from enum import Enum
 
 
+class ConfigType(Enum):
+  """Different confiuration files"""
+  DESIGN = "design.yml"
+  GENERAL = "general.yml"
+  DB = "db.yml"
+  LOG = "log.yml"
+
+
 class RequestType(Enum):
   """All request types"""
   POST = 1

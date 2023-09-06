@@ -3,10 +3,10 @@ from dataclasses import dataclass
 from enum import Enum
 
 from classes.enums import Table
-from database.db import DB
+from database.db import Db
 from exceptions.database import SQLException
 
-db = DB()
+db = Db()
 
 
 @dataclass

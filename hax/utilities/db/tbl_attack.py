@@ -1,24 +1,23 @@
 """Database operation related to the attacks"""
 from classes.attack import Attack
 from classes.enums import AttackType, RequestType, Table
-from database.db import DB
-from database.table_operations import run, select_all, select_item
 
-db = DB()
+from .base import Criteria
+from .commands import run_sql, select_all, select_item
 
 
 def add_attack(attack: Attack):
   """Insert attack into database"""
   command = "INSERT INTO attack (url, parameters) values (?, ?)"
   args = (attack.url, attack.paramaters)
-  return run(command, args)
+  return run_sql(command, args)
 
 
 def insert_attack(url: str, request_type: RequestType, attack_type: AttackType, parameters: str):
   """insert setting into database"""
   command = "INSERT INTO setting (url, request_type, parameters, attack_type) values (?, ?, ?, ?)"
   args = (url, request_type, parameters, attack_type,)
-  return run(command, args)
+  return run_sql(command, args)
 
 
 def update_attack(item_id: int, url: str, request_type: RequestType, attack_type: AttackType, parameters: str):
@@ -30,12 +29,12 @@ def update_attack(item_id: int, url: str, request_type: RequestType, attack_type
     attack_type = ?
   WHERE id = ?"""
   args = (url, request_type, parameters, attack_type, item_id,)
-  return run(command, args)
+  return run_sql(command, args)
 
 
 def get_attack_by_url(url: str):
   """get attack from database using its url"""
-  return select_item(Table.ATTACK, [("url", url)])
+  return select_item(Table.ATTACK, [Criteria("url", url, Criteria.Op.EQ)])
 
 
 def get_all_attacks():

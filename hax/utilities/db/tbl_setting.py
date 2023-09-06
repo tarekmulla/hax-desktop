@@ -1,6 +1,8 @@
 """Database operation related to the setting"""
 from classes.enums import Table
-from database.table_operations import run, select_all, select_item
+
+from .base import Criteria
+from .commands import run_sql, select_all, select_item
 
 
 def update_setting(name: str, value: str):
@@ -14,12 +16,12 @@ def update_setting(name: str, value: str):
   else:
     command = "INSERT INTO setting (name, value) values (?, ?)"
     args = (name, value)
-  return run(command, args)
+  return run_sql(command, args)
 
 
 def get_setting_by_name(name: str):
   """get setting value from database"""
-  return select_item(Table.SETTING, [("name", name)])
+  return select_item(Table.SETTING, [Criteria("name", name, Criteria.Op.EQ)])
 
 
 def get_all_setting():

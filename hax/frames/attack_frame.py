@@ -1,9 +1,9 @@
 """base class for all attacks"""
-from os.path import abspath, dirname
 from tkinter import END
 
 from classes.attack import Attack
 from frames.base_frame import BaseFrame
+from utilities.config import BASE_DIR
 
 
 class AttackFrame(BaseFrame):
@@ -11,13 +11,10 @@ class AttackFrame(BaseFrame):
 
   attack_num = 0
 
-  def __init__(self, master, title: str, payloads_path: str = ""):
+  def __init__(self, master, title: str, payloads_file: str):
     super().__init__(master=master, title=title)
     self.attack = None
-    if payloads_path:
-      self.payloads_path = payloads_path
-    else:
-      self.payloads_path = f"{dirname(abspath(__file__))}/payloads.txt"
+    self.payloads_path = f"{BASE_DIR}/.payloads/{payloads_file}"
 
   def __init_frame__(self):
     """Initialize frame components"""
@@ -52,7 +49,8 @@ class AttackFrame(BaseFrame):
     response_result += f"PAYLOAD: {payload}\n"
     response_result += f"REQUEST URL: {attack.response.request.url}\n"
     response_result += f"REQUEST HEADERS: {attack.response.request.headers}\n"
-    response_result += f"REQUEST BODY: {attack.response.request.body}\n"
+    req_body = str(attack.response.request.body)
+    response_result += f"REQUEST BODY: {req_body}\n"
     if attack.is_success:
       response_result += "The attack has succeded\n"
     else:

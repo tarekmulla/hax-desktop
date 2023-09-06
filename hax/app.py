@@ -2,20 +2,19 @@
 from tkinter import PhotoImage, Tk
 
 from classes.enums import Windows
-from config import AppConfig
 from frames.about_frame import AboutFrame
 from frames.main_menu import MainMenu
 from frames.menubar import MenuBar
 from frames.setting_frame import SettingFrame
 from frames.sqli_frame import SqliFrame
 from frames.xss_frame import XssFrame
+from utilities.config import get_app_initial_size, get_icon
 
 
 class App(Tk):
   """The main application window"""
   def __init__(self):
     super().__init__()
-    self.app_config = AppConfig()
     self.main_menu = MainMenu(master=self)
     self.menubar = MenuBar(master=self)
     self.__init_components__()
@@ -23,11 +22,11 @@ class App(Tk):
   def __init_components__(self):
     """Initialize the main form GUI components"""
     self.title("HaX Cybersecurity tool")
-    self.geometry(self.app_config.get_app_initial_size())
+    self.geometry(get_app_initial_size())
     self.resizable(False, False)
 
     # Set the application icon
-    photo = PhotoImage(file=self.app_config.get_icon())
+    photo = PhotoImage(file=get_icon())
     self.iconphoto(False, photo)
 
     # init the menubar and its components

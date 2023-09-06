@@ -3,16 +3,15 @@ from tkinter import Button, Entry, Frame, Label, OptionMenu, Scrollbar, StringVa
 from webbrowser import open_new
 
 from classes.enums import Color
-from config import AppConfig
 from PIL import Image, ImageTk
+from utilities.config import get_color
 
 
 class BaseFrame(Frame):
   """Frame for sub windows in the application"""
   def __init__(self, master, title: str):
     self.master = master
-    self.app_config = AppConfig()
-    super().__init__(master, bg=self.app_config.get_color(Color.THIRD))  # type: ignore[attr-defined]
+    super().__init__(master, bg=get_color(Color.THIRD))  # type: ignore[attr-defined]
     self.master.columnconfigure(1, weight=1)
     self.master.rowconfigure(0, weight=1)
     self.master.title(title)  # type: ignore[attr-defined]
@@ -23,29 +22,29 @@ class BaseFrame(Frame):
     self.custom_style = ttk.Style()
     self.custom_style.theme_use('clam')
     self.custom_style.configure("progress.Horizontal.TProgressbar",
-                                background=self.app_config.get_color(Color.PRIMARY),
-                                troughcolor=self.app_config.get_color(Color.SECONDARY),
-                                darkcolor=self.app_config.get_color(Color.PRIMARY),
-                                lightcolor=self.app_config.get_color(Color.PRIMARY),
-                                bordercolor=self.app_config.get_color(Color.SECONDARY))
+                                background=get_color(Color.PRIMARY),
+                                troughcolor=get_color(Color.SECONDARY),
+                                darkcolor=get_color(Color.PRIMARY),
+                                lightcolor=get_color(Color.PRIMARY),
+                                bordercolor=get_color(Color.SECONDARY))
 
   def __add_default__(self, widget_type, **parameters):
     """Add default parameters"""
     if widget_type in [Button] and "highlightbackground" not in parameters:
-      parameters["highlightbackground"] = self.app_config.get_color(Color.THIRD)
+      parameters["highlightbackground"] = get_color(Color.THIRD)
     if widget_type not in [ttk.Progressbar]:
       if "fg" not in parameters:
-        parameters["fg"] = self.app_config.get_color(Color.SECONDARY)
+        parameters["fg"] = get_color(Color.SECONDARY)
       if "bg" not in parameters and widget_type not in [Entry]:
-        parameters["bg"] = self.app_config.get_color(Color.THIRD)
+        parameters["bg"] = get_color(Color.THIRD)
       elif widget_type is Entry:
-        parameters["background"] = self.app_config.get_color(Color.FORTH)
+        parameters["background"] = get_color(Color.FORTH)
 
       if widget_type is not Label:
         if "highlightbackground" not in parameters:
-          parameters["highlightbackground"] = self.app_config.get_color(Color.BORDER)
+          parameters["highlightbackground"] = get_color(Color.BORDER)
         if "highlightcolor" not in parameters:
-          parameters["highlightcolor"] = self.app_config.get_color(Color.PRIMARY)
+          parameters["highlightcolor"] = get_color(Color.PRIMARY)
         if "highlightthickness" not in parameters:
           parameters["highlightthickness"] = 1
     return parameters
@@ -66,7 +65,7 @@ class BaseFrame(Frame):
 
   def add_link(self, text, link, row, col):
     """Add text link to the frame in a specific grid cell"""
-    lbl_link = self.add_widget(Label, fg=self.app_config.get_color(Color.PRIMARY),
+    lbl_link = self.add_widget(Label, fg=get_color(Color.PRIMARY),
                                text=text, justify="center", cursor="hand2")
     lbl_link.bind("<Button-1>", lambda e: open_new(link))
     lbl_link.grid(row=row, column=col)
@@ -102,8 +101,8 @@ class BaseFrame(Frame):
     variables.set(name)
     self.__add_default__(OptionMenu, **parameters)
     option = OptionMenu(self, variables, *value, **parameters)
-    option.config(bg=self.app_config.get_color(Color.THIRD),
-                  fg=self.app_config.get_color(Color.SECONDARY))
+    option.config(bg=get_color(Color.THIRD),
+                  fg=get_color(Color.SECONDARY))
     return (option, variables)
 
   def add_log(self, row, col, colspan, height):

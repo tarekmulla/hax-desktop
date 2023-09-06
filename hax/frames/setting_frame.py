@@ -1,8 +1,8 @@
 """Setting frame"""
 from tkinter import INSERT
 
-from database.setting_ops import get_all_setting, update_setting
 from frames.base_frame import BaseFrame
+from utilities.db.tbl_setting import get_all_setting, update_setting
 
 
 class SettingFrame(BaseFrame):

@@ -4,7 +4,7 @@ from time import sleep
 
 import requests
 from classes.enums import AttackType, RequestType
-from exceptions.connection import ConnectionFailedException
+from classes.exception.connection import ConnectionFailedException
 from requests import Response
 
 

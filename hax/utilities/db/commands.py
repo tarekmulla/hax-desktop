@@ -1,37 +1,18 @@
 """Database operation related to the setting"""
-from dataclasses import dataclass
-from enum import Enum
+
 
 from classes.enums import Table
-from database.db import Db
-from exceptions.database import SQLException
+from classes.exception.database import SQLException
 
-db = Db()
-
-
-@dataclass
-class Criteria:
-  """WHERE clousre criteria parameters"""
-  class Op(Enum):
-    """Different criteria operations in the SQL query"""
-    EQ = "="
-    GT = ">"
-    GE = ">="
-    LT = "<"
-    LE = "<="
-    LIKE = "LIKE"
-
-  name: str
-  value: str
-  ops: Op = Op.EQ
+from .base import Criteria, fetch, run
 
 
-def run(command: str, args: tuple = ()):
+def run_sql(command: str, args: tuple = ()):
   """run SQL command and return result"""
   if command.lower().strip().startswith("select"):
-    result = db.fetch(command, args)
+    result = fetch(command, args)
   else:
-    result = db.run(command, args)
+    result = run(command, args)
     if not result:
       raise SQLException(f"Failed execuation SQL command [{command}]")
   return result
@@ -40,7 +21,7 @@ def run(command: str, args: tuple = ()):
 def select_all(table: Table):
   """Select all records from a table"""
   command = f"SELECT * FROM {Table(table).name}"  # noqa: S608
-  return run(command)
+  return run_sql(command)
 
 
 def select_item(table: Table, criteria: list[Criteria]):
@@ -52,7 +33,7 @@ def select_item(table: Table, criteria: list[Criteria]):
     conditions.append(f"{item.name}{item.ops.value}?")
   condition = ",".join(conditions)
   command = f"SELECT * FROM {Table(table).name} WHERE {condition}"  # noqa: S608
-  result = run(command, args)
+  result = run_sql(command, args)
   if len(result) > 1:
     raise SQLException(command)
   return result[0] if result else None

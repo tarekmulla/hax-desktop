@@ -2,7 +2,7 @@
 # pylint: disable=R0801
 from tkinter import INSERT, Tk
 
-from attacks.sqli.sqli_attack import SqliAttack
+from classes.attacks.sqli import SqliAttack
 from classes.enums import AttackType, RequestType
 from frames.attack_frame import AttackFrame
 

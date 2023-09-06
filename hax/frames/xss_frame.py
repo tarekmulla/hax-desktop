@@ -2,7 +2,7 @@
 # pylint: disable=R0801
 from tkinter import INSERT, Tk
 
-from attacks.xss.xss_attack import XssAttack
+from classes.attacks.xss import XssAttack
 from classes.enums import AttackType, RequestType
 from frames.attack_frame import AttackFrame
 

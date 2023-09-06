@@ -2,7 +2,7 @@
 from os.path import dirname, exists
 
 from classes.enums import Color, ConfigType
-from exceptions.application import ConfigException
+from classes.exception.application import ConfigException
 from yaml import safe_load
 
 BASE_DIR = dirname(dirname(__file__))

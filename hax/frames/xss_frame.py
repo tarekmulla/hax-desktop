@@ -1,6 +1,5 @@
 """CrossSite Scripting injection frame"""
 # pylint: disable=R0801
-from os.path import abspath, dirname
 from tkinter import INSERT, Tk
 
 from attacks.xss.xss_attack import XssAttack
@@ -12,8 +11,7 @@ class XssFrame(AttackFrame):
   """CrossSite attack frame"""
 
   def __init__(self, master: Tk):
-    payloads_path = f"{dirname(abspath(__file__))}/../attacks/xss/payloads.txt"
-    super().__init__(master, "CrossSite Scripting (XSS) attack", payloads_path)
+    super().__init__(master, "CrossSite Scripting (XSS) attack", "xss.txt")
 
   def __init_frame__(self):
     """Initialize frame components"""

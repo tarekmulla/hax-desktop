@@ -1,63 +1,63 @@
 """"Database operations"""
-from os.path import dirname
-from sqlite3 import Connection, connect
+from sqlite3 import DatabaseError, IntegrityError, connect
+
+from exceptions.database import DBException
+from utilities.config import AppConfig
 
 
 class DB:
   """database operations"""
 
   def __new__(cls):
-    if not hasattr(cls, 'instance'):
+    if not hasattr(cls, "instance"):
       cls.instance = super(DB, cls).__new__(cls)
     return cls.instance
 
   def __init__(self):
-    db_path = dirname(dirname(__file__)) + "/hax.db"
-    self.con: Connection = connect(db_path)
+    self.app_config = AppConfig()
     self.__create_tables__()
 
   def __create_tables__(self):
     """Create tables"""
-    cur = self.con.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS attack( \
-                id INTEGER PRIMARY KEY AUTOINCREMENT, \
-                url TEXT NOT NULL, \
-                parameters TEXT NOT NULL \
-                )")
-    cur.execute("CREATE TABLE IF NOT EXISTS setting( \
-                id INTEGER PRIMARY KEY AUTOINCREMENT, \
-                name TEXT NOT NULL, \
-                value TEXT NOT NULL \
-                )")
+    self.run(self.app_config.db["attack"], None)
+    self.run(self.app_config.db["setting"], None)
+
+  def _execuate(self, command: str, args, with_commit: bool = False):
+    """Execuate SQL command"""
+    try:
+      with connect(self.app_config.get_db_path()) as con:
+        cur = con.cursor()
+        if args:
+          cur.execute(command, args)
+        else:
+          cur.execute(command)
+        if with_commit:
+          con.commit()
+      return cur
+    except IntegrityError as ex:
+      raise DBException(f"Can not insert [{args}] twice", ex.args) from ex
+    except DatabaseError as ex:
+      raise DBException(f"Database error while execuating command [{command}] with args: [{args}]", ex.args) from ex
+    except Exception as ex:
+      raise DBException(f"Failed execuating command [{command}] with args: [{args}]", ex.args) from ex
 
   def run(self, command: str, args: tuple) -> bool:
     """Execuate non-select database command"""
     is_succ = False
     try:
-      command.replace("\n", "")
-      cur = self.con.cursor()
-      if args:
-        cur.execute(command, args)
-      else:
-        cur.execute(command)
-      self.con.commit()
+      cur = self._execuate(command, args, True)
       is_succ = cur.rowcount > 0
       cur.close()
-    except Exception:
+    except DBException:
       is_succ = False
     return is_succ
 
   def fetch(self, command: str, args: tuple) -> list:
     """Execuate select database command"""
     try:
-      command.replace("\n", "")
-      cur = self.con.cursor()
-      if args:
-        cur.execute(command, args)
-      else:
-        cur.execute(command)
-      result = cur.fetchall()
+      cur = self._execuate(command, args)
+      result: list = cur.fetchall()
       cur.close()
       return result
-    except Exception:
+    except DBException:
       return []

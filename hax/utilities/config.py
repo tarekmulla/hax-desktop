@@ -14,6 +14,8 @@ class AppConfig:
     """Different confiuration files"""
     DESIGN = "design.yml"
     GENERAL = "general.yml"
+    DB = "db.yml"
+    LOG = "log.yml"
 
   def __new__(cls):
     if not hasattr(cls, 'instance'):
@@ -25,17 +27,25 @@ class AppConfig:
 
   def _load_all(self):
     """load all application configuration files (YAML format)"""
-    self.base_dir = dirname(__file__)
+    self.base_dir = dirname(dirname(__file__))
     self.design = self._load_config(AppConfig.Type.DESIGN)
     self.general = self._load_config(AppConfig.Type.GENERAL)
+    self.db = self._load_config(AppConfig.Type.DB)  # pylint: disable=invalid-name
+    self.log = self._load_config(AppConfig.Type.LOG)
 
   def _load_config(self, config_type):
     """Load specific configuration file"""
-    file_path = f"{self.base_dir}/{config_type.value}"
+    file_path = f"{self.base_dir}/.config/{config_type.value}"
     if exists(file_path):
       with open(file_path, encoding="UTF-8") as config:
         return safe_load(config)
     raise FileNotFoundError(f"Application {config_type.value} config file not found in path: {file_path}")
+
+  def get_db_path(self):
+    """get the application database path"""
+    if hasattr(self, "db") and "name" in self.db:
+      return f"{self.base_dir}/{self.db['name']}"
+    raise ConfigException("db")
 
   def get_app_initial_size(self):
     """get the application initial dimension"""

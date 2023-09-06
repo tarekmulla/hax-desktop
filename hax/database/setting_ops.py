@@ -1,6 +1,6 @@
 """Database operation related to the setting"""
 from classes.enums import Table
-from database.table_operations import run, select_all, select_item
+from database.table_ops import Criteria, run, select_all, select_item
 
 
 def update_setting(name: str, value: str):
@@ -19,7 +19,7 @@ def update_setting(name: str, value: str):
 
 def get_setting_by_name(name: str):
   """get setting value from database"""
-  return select_item(Table.SETTING, [("name", name)])
+  return select_item(Table.SETTING, [Criteria("name", name, Criteria.Op.EQ)])
 
 
 def get_all_setting():

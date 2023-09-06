@@ -2,13 +2,13 @@
 from tkinter import PhotoImage, Tk
 
 from classes.enums import Windows
-from config import AppConfig
 from frames.about_frame import AboutFrame
 from frames.main_menu import MainMenu
 from frames.menubar import MenuBar
 from frames.setting_frame import SettingFrame
 from frames.sqli_frame import SqliFrame
 from frames.xss_frame import XssFrame
+from utilities.config import AppConfig
 
 
 class App(Tk):

@@ -2,8 +2,8 @@
 from tkinter import Frame, Label
 
 from classes.enums import Color, Windows
-from config import AppConfig
 from PIL import Image, ImageTk
+from utilities.config import AppConfig
 
 
 class MainMenu(Frame):

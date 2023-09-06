@@ -233,3 +233,6 @@ out/
 
 # database files
 *.db
+
+# log directory
+.logs/

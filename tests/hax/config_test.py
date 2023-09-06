@@ -2,7 +2,7 @@
 
 
 import pytest
-from config import AppConfig
+from utilities.config import AppConfig
 from classes.enums import Color
 
 @pytest.fixture

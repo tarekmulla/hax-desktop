@@ -3,8 +3,8 @@ from tkinter import Button, Entry, Frame, Label, OptionMenu, Scrollbar, StringVa
 from webbrowser import open_new
 
 from classes.enums import Color
-from config import AppConfig
 from PIL import Image, ImageTk
+from utilities.config import AppConfig
 
 
 class BaseFrame(Frame):

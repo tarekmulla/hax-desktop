@@ -1,10 +1,7 @@
 """Database operation related to the attacks"""
 from classes.attack import Attack
 from classes.enums import AttackType, RequestType, Table
-from database.db import DB
-from database.table_operations import run, select_all, select_item
-
-db = DB()
+from database.table_ops import Criteria, run, select_all, select_item
 
 
 def add_attack(attack: Attack):
@@ -35,7 +32,7 @@ def update_attack(item_id: int, url: str, request_type: RequestType, attack_type
 
 def get_attack_by_url(url: str):
   """get attack from database using its url"""
-  return select_item(Table.ATTACK, [("url", url)])
+  return select_item(Table.ATTACK, [Criteria("url", url, Criteria.Op.EQ)])
 
 
 def get_all_attacks():

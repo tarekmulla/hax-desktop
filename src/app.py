@@ -19,6 +19,7 @@ class App(Tk):
     self.main_menu = MainMenu(master=self)
     self.menubar = MenuBar(master=self)
     self.__init_components__()
+    self.is_ready = True
 
   def __init_components__(self):
     """Initialize the main form GUI components"""

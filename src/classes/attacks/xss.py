@@ -10,8 +10,10 @@ XSS_SUCCESS_PATTEREN = r"<script[^\n]*>[^\n]*(`|\(\"|\(\')xss(`|\"\)|'\))[^\n]*<
 
 class XssAttack(Attack):
   """Class represent a CrossSite attack"""
+  # pylint: disable=too-few-public-methods
 
   def is_attack_succeeded(self, response: Response) -> bool:
     """Examine the response content to identify whether the CrossSite Scripting attack was successful"""
     response_body = response.content.decode()
-    return search(pattern=XSS_SUCCESS_PATTEREN, string=response_body, flags=IGNORECASE)
+    result = search(pattern=XSS_SUCCESS_PATTEREN, string=response_body, flags=IGNORECASE)
+    return bool(result)

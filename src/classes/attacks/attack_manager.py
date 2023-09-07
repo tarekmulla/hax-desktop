@@ -16,7 +16,10 @@ from .xss import XssAttack
 
 class AttackManager:
   """Class to manage performing a specific attack on a website"""
-  def __init__(self, url: str, request_type: RequestType, paramaters: list, placeholder_text: str, attack_type: AttackType):
+  attack: Attack
+
+  def __init__(self, url: str = "", request_type: RequestType = RequestType.GET,
+               paramaters=None, placeholder_text: str = "", attack_type: AttackType = AttackType.XSS):
     if attack_type is AttackType.XSS:
       self.attack = XssAttack(url, request_type, paramaters, attack_type)
     elif attack_type is AttackType.SQLI:
@@ -25,10 +28,11 @@ class AttackManager:
       self.attack = Attack(url, request_type, paramaters, attack_type)
     self.placeholder_text = placeholder_text
 
-  def start(self, payloads_file, add_result_func):
+  def start(self, payloads_file: str, add_result_func):
     """Start the attack in separate thread"""
     payloads: list = load_payloads(self.placeholder_text, payloads_file)
     self.total_attacks = len(payloads)
+    self.is_finish = False
     self.attack_thread = Thread(
         target=self._start_attack,
         args=(
@@ -44,7 +48,7 @@ class AttackManager:
     self.stop_flag = False
     for payload in payloads:
       # for each payload, get the request ready and then send it to the server
-      with self.send_http_request(attack, payload) as response:
+      with self._send_http_request(attack, payload) as response:
         # get the attack result
         if self.stop_flag:
           return
@@ -52,12 +56,13 @@ class AttackManager:
         result = self.summarize_response(payload, response, is_success)
         add_result_func(result, is_success)
         sleep(0.1)
+    self.is_finish = True
 
   def stop(self):
     """Stop the attack"""
     self.stop_flag = True
 
-  def send_http_request(self, attack: Attack, attack_payload: str) -> requests.Response:
+  def _send_http_request(self, attack: Attack, attack_payload: str) -> requests.Response:
     """initialize HTTP request and return response"""
     headers = {"User-Agent": "Mozilla/5.0"}
     try:

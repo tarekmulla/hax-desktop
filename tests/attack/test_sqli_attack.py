@@ -18,9 +18,8 @@ def test_xss_attack():
 
   mock_response = MagicMock()
   mock_response.status_code = 200
-  mock_response.content = b"<script>alert('XSS')</script>"
 
-  manager = AttackManager("https://test.com", RequestType.GET, "", "", AttackType.XSS)
+  manager = AttackManager("https://test.com", RequestType.GET, "", "", AttackType.SQLI)
   manager._send_http_request = MagicMock()
   # mock the context manager of the _send_http_request method ("with" statment)
   manager._send_http_request.return_value.__enter__.return_value = mock_response

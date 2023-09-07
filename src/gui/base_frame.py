@@ -18,6 +18,7 @@ class BaseFrame(Frame):
     self.master.title(title)  # type: ignore[attr-defined]
     self.__init_frame__()
     self.set_default_input()
+    self.is_ready = True
 
   def __init_frame__(self):
     self.custom_style = ttk.Style()

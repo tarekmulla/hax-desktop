@@ -6,6 +6,7 @@ from classes.attacks.enums import AttackType, RequestType
 
 class Attack:
   """Class represents Cyber Attack"""
+  # pylint: disable=too-few-public-methods
   payloads: list = []
 
   def __init__(self, url: str, request_type: RequestType, paramaters: list, attack_type: AttackType):

@@ -14,8 +14,8 @@ class AttackFrame(BaseFrame):
 
   def __init__(self, master, title: str, payloads_file: str):
     super().__init__(master=master, title=title)
-    self.attack_manager: AttackManager = None
     self.payloads_path = join(BASE_DIR, ".payloads", payloads_file)
+    self.attack_manager: AttackManager = AttackManager()
 
   def __init_frame__(self):
     """Initialize frame components"""

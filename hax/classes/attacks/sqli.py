@@ -1,5 +1,5 @@
 """Module providing SQLI injection attack"""
-from classes.attack import Attack
+from classes.attacks.attack import Attack
 
 
 class SqliAttack(Attack):

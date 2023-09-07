@@ -2,7 +2,7 @@
 
 
 import pytest
-from classes.enums import Color
+from classes.gui.enums import Color
 from utilities.config import get_app_initial_size, get_color, get_icon, get_image_path
 
 

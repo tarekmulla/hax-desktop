@@ -1,8 +1,8 @@
 """Test class for Utilities methods"""
 
 
-from classes.attack import Attack
-from classes.enums import AttackType, RequestType
+from classes.attacks.attack import Attack
+from classes.attacks.enums import AttackType, RequestType
 from classes.exception.connection import ConnectionFailedException
 from pytest import raises
 

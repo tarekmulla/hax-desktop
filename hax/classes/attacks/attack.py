@@ -3,7 +3,7 @@ from threading import Thread
 from time import sleep
 
 import requests
-from classes.enums import AttackType, RequestType
+from classes.attacks.enums import AttackType, RequestType
 from classes.exception.connection import ConnectionFailedException
 from requests import Response
 

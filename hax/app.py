@@ -1,7 +1,7 @@
 """Module of the main application form"""
 from tkinter import PhotoImage, Tk
 
-from classes.enums import Windows
+from classes.gui.enums import Windows
 from gui.about_frame import AboutFrame
 from gui.main_menu import MainMenu
 from gui.menubar import MenuBar

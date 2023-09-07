@@ -1,7 +1,7 @@
 """Unit tests for the database operations"""
 
 import pytest
-from classes.enums import AttackType, RequestType
+from classes.attacks.enums import AttackType, RequestType
 from classes.exception.database import SQLException
 from utilities.db.tbl_attack import get_all_attacks, get_attack_by_url, insert_attack, update_attack
 

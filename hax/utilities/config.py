@@ -1,8 +1,9 @@
 """"load all application configuration files (YAML format)"""
 from os.path import dirname, exists
 
-from classes.enums import Color, ConfigType
+from classes.enums import ConfigType
 from classes.exception.application import ConfigException
+from classes.gui.enums import Color
 from yaml import safe_load
 
 BASE_DIR = dirname(dirname(__file__))

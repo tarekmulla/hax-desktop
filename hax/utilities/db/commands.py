@@ -1,7 +1,7 @@
 """Database operation related to the setting"""
 
 
-from classes.enums import Table
+from classes.db.enums import Table
 from classes.exception.database import SQLException
 
 from .base import Criteria, fetch, run

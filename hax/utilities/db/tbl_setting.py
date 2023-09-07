@@ -1,5 +1,5 @@
 """Database operation related to the setting"""
-from classes.enums import Table
+from classes.db.enums import Table
 
 from .base import Criteria
 from .commands import run_sql, select_all, select_one_item

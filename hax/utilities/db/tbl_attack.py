@@ -1,6 +1,7 @@
 """Database operation related to the attacks"""
-from classes.attack import Attack
-from classes.enums import AttackType, RequestType, Table
+from classes.attacks.attack import Attack
+from classes.attacks.enums import AttackType, RequestType
+from classes.db.enums import Table
 
 from .base import Criteria
 from .commands import run_sql, select_all, select_one_item

@@ -29,10 +29,10 @@ class SettingFrame(BaseFrame):
     """default value for the input"""
     super().set_default_input()
     setting = get_all_setting()
-    aws_access_key_id = setting.get("aws_access_key_id")
-    aws_secret_access_key = setting.get("aws_secret_access_key")
-    self.aws_access_key_id.insert(INSERT, aws_access_key_id if aws_access_key_id else "")
-    self.aws_secret_access_key.insert(INSERT, aws_secret_access_key if aws_secret_access_key else "")
+    aws_access_key_id = setting.get("aws_access_key_id") if "aws_access_key_id" in setting else ""
+    aws_secret_access_key = setting.get("aws_secret_access_key") if "aws_secret_access_key" in setting else ""
+    self.aws_access_key_id.insert(INSERT, aws_access_key_id)
+    self.aws_secret_access_key.insert(INSERT, aws_secret_access_key)
 
   def save_setting(self):
     """Save setting"""

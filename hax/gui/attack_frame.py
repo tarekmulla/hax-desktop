@@ -1,8 +1,10 @@
 """base class for all attacks"""
+from os.path import join
 from tkinter import END
 
-from classes.attack import Attack
+from classes.attacks.attack import Attack
 from gui.base_frame import BaseFrame
+from utilities.attack import load_payloads, summarize_response
 from utilities.config import BASE_DIR
 
 
@@ -14,7 +16,7 @@ class AttackFrame(BaseFrame):
   def __init__(self, master, title: str, payloads_file: str):
     super().__init__(master=master, title=title)
     self.attack = None
-    self.payloads_path = f"{BASE_DIR}/.payloads/{payloads_file}"
+    self.payloads_path = join(BASE_DIR, ".payloads", payloads_file)
 
   def __init_frame__(self):
     """Initialize frame components"""
@@ -40,32 +42,16 @@ class AttackFrame(BaseFrame):
       return
     self.txt_log.delete(1.0, END)  # clear text
     self.attack_num = 0
-    self.payloads: list = self.load_payloads(placeholder_text, self.payloads_path)
+    self.payloads: list = load_payloads(placeholder_text, self.payloads_path)
     self.attack.start(self.payloads, self.add_result)
 
   def add_result(self, payload: str, attack: Attack):
     """Add result to the log text component"""
-    response_result = ""
-    response_result += f"PAYLOAD: {payload}\n"
-    response_result += f"REQUEST URL: {attack.response.request.url}\n"
-    response_result += f"REQUEST HEADERS: {attack.response.request.headers}\n"
-    req_body = str(attack.response.request.body)
-    response_result += f"REQUEST BODY: {req_body}\n"
-    if attack.is_success:
-      response_result += "The attack has succeded\n"
-    else:
-      response_result += "The attack has failed\n"
-    response_result += "-" * 50
-    response_result += "\n" * 2
-    self.txt_log.insert(END, response_result)
+    result = summarize_response(payload, attack)
+    self.txt_log.insert(END, result)
     row = (self.attack_num * 7) + 5
     # add tag using indices for the part of text to be highlighted
     self.txt_log.tag_add("SUCCESS" if attack.is_success else "FAILED", f"{row}.0", f"{row}.100")
     self.txt_log.see(END)
     self.progbar_attacks.step(99.9 * (1 / len(self.payloads)))
     self.attack_num += 1
-
-  def load_payloads(self, placeholder_text, file_path) -> list:
-    """Load the attack payloads from a file"""
-    with open(file_path, "r", encoding="UTF-8") as payloads_file:
-      return [payload.strip("\n").replace("{{PLACEHOLDER}}", placeholder_text) for payload in payloads_file.readlines()]

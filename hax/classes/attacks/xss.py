@@ -1,7 +1,7 @@
 """Module providing CrossSite Scripting injection attack"""
 from re import IGNORECASE, search
 
-from classes.attack import Attack
+from classes.attacks.attack import Attack
 
 XSS_SUCCESS_PATTEREN = r"<script[^\n]*>[^\n]*(`|\(\"|\(\')xss(`|\"\)|'\))[^\n]*<\/script[^\n]*>"
 

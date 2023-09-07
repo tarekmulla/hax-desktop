@@ -56,7 +56,7 @@ def fetch(command: str, args: tuple) -> list:
     result: list = cur.fetchall()
     cur.close()
     return result
-  except DBException as ex:
+  except DBException:
     return []
 
 

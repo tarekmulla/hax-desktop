@@ -1,8 +1,9 @@
 """The main menu of the application"""
 from tkinter import Frame, Label
 
-from classes.gui.enums import Color, Windows
 from PIL import Image, ImageTk
+
+from classes.gui.enums import Color, Windows
 from utilities.config import get_color, get_image_path
 
 

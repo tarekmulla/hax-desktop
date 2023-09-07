@@ -2,8 +2,9 @@
 from tkinter import Button, Entry, Frame, Label, OptionMenu, Scrollbar, StringVar, Text, ttk
 from webbrowser import open_new
 
-from classes.gui.enums import Color
 from PIL import Image, ImageTk
+
+from classes.gui.enums import Color
 from utilities.config import get_color
 
 

@@ -8,7 +8,7 @@ install-tk:
 	@brew install python-tk
 
 test:
-	@pytest --cov=hax tests/
+	@pytest --cov=src tests/
 
 run:
 	@python3 src/main.py

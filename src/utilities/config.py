@@ -2,10 +2,11 @@
 from os import makedirs
 from os.path import dirname, exists, join
 
+from yaml import safe_load
+
 from classes.enums import ConfigType
 from classes.exception.application import ConfigException
 from classes.gui.enums import Color
-from yaml import safe_load
 
 BASE_DIR = dirname(dirname(__file__))
 

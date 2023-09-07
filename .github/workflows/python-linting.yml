@@ -32,6 +32,11 @@ jobs:
           pip install -r requirements.txt
           pip install types-PyYAML types-requests
 
+      - name: setup virtual display to test tkinter gui
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: npm test
+
       - name: Check python format
         run: |
           sh ./scripts/check.sh

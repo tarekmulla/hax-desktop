@@ -1,5 +1,5 @@
 """About frame to show information about the application"""
-from frames.base_frame import BaseFrame
+from gui.base_frame import BaseFrame
 from utilities.config import GENERAL, get_logo
 
 

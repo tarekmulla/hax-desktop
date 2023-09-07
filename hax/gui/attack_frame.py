@@ -2,7 +2,7 @@
 from tkinter import END
 
 from classes.attack import Attack
-from frames.base_frame import BaseFrame
+from gui.base_frame import BaseFrame
 from utilities.config import BASE_DIR
 
 

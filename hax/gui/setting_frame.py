@@ -1,7 +1,7 @@
 """Setting frame"""
 from tkinter import INSERT
 
-from frames.base_frame import BaseFrame
+from gui.base_frame import BaseFrame
 from utilities.db.tbl_setting import get_all_setting, update_setting
 
 

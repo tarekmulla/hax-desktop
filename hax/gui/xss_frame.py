@@ -1,17 +1,17 @@
-"""SQLI injection frame"""
+"""CrossSite Scripting injection frame"""
 # pylint: disable=R0801
 from tkinter import INSERT, Tk
 
-from classes.attacks.sqli import SqliAttack
+from classes.attacks.xss import XssAttack
 from classes.enums import AttackType, RequestType
-from frames.attack_frame import AttackFrame
+from gui.attack_frame import AttackFrame
 
 
-class SqliFrame(AttackFrame):
+class XssFrame(AttackFrame):
   """CrossSite attack frame"""
 
   def __init__(self, master: Tk):
-    super().__init__(master, "SQLI Injection attack", "sqli.txt")
+    super().__init__(master, "CrossSite Scripting (XSS) attack", "xss.txt")
 
   def __init_frame__(self):
     """Initialize frame components"""
@@ -53,5 +53,5 @@ class SqliFrame(AttackFrame):
     request_type = RequestType[self.value_request_type.get()]
     parameters = self.input_parameters.get().split(",")
     placeholder_text = self.input_placeholder_text.get()
-    self.attack = SqliAttack(url, request_type, parameters, AttackType.SQLI)
+    self.attack = XssAttack(url, request_type, parameters, AttackType.XSS)
     self.start_attack(placeholder_text)

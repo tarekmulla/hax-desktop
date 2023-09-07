@@ -2,12 +2,12 @@
 from tkinter import PhotoImage, Tk
 
 from classes.enums import Windows
-from frames.about_frame import AboutFrame
-from frames.main_menu import MainMenu
-from frames.menubar import MenuBar
-from frames.setting_frame import SettingFrame
-from frames.sqli_frame import SqliFrame
-from frames.xss_frame import XssFrame
+from gui.about_frame import AboutFrame
+from gui.main_menu import MainMenu
+from gui.menubar import MenuBar
+from gui.setting_frame import SettingFrame
+from gui.sqli_frame import SqliFrame
+from gui.xss_frame import XssFrame
 from utilities.config import get_app_initial_size, get_icon
 from utilities.log import LogLevel, log_msg
 

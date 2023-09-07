@@ -1,6 +1,7 @@
 """Unit tests for the database operations"""
 
 import pytest
+
 from classes.exception.database import SQLException
 from utilities.db.tbl_setting import get_all_setting, get_setting_by_name, update_setting
 

@@ -2,9 +2,8 @@
 from os.path import join
 from tkinter import END
 
-from classes.attacks.attack import Attack
+from classes.attacks.attack_manager import AttackManager
 from gui.base_frame import BaseFrame
-from utilities.attack import load_payloads, summarize_response
 from utilities.config import BASE_DIR
 
 
@@ -15,7 +14,7 @@ class AttackFrame(BaseFrame):
 
   def __init__(self, master, title: str, payloads_file: str):
     super().__init__(master=master, title=title)
-    self.attack = None
+    self.attack_manager: AttackManager = None
     self.payloads_path = join(BASE_DIR, ".payloads", payloads_file)
 
   def __init_frame__(self):
@@ -32,26 +31,25 @@ class AttackFrame(BaseFrame):
     self.txt_log.tag_config("FAILED", background="red")
 
   def destroy(self) -> None:
-    if self.attack:
-      self.attack.stop_attack()
+    """destroy the frame and its components"""
+    if self.attack_manager:
+      self.attack_manager.stop()
     super().destroy()
 
-  def start_attack(self, placeholder_text: str):
+  def start_attack(self):
     """Start the attack"""
-    if not self.attack:
+    if not self.attack_manager:
       return
     self.txt_log.delete(1.0, END)  # clear text
     self.attack_num = 0
-    self.payloads: list = load_payloads(placeholder_text, self.payloads_path)
-    self.attack.start(self.payloads, self.add_result)
+    self.attack_manager.start(self.payloads_path, self.add_result)
 
-  def add_result(self, payload: str, attack: Attack):
+  def add_result(self, result, is_success):
     """Add result to the log text component"""
-    result = summarize_response(payload, attack)
     self.txt_log.insert(END, result)
     row = (self.attack_num * 7) + 5
     # add tag using indices for the part of text to be highlighted
-    self.txt_log.tag_add("SUCCESS" if attack.is_success else "FAILED", f"{row}.0", f"{row}.100")
+    self.txt_log.tag_add("SUCCESS" if is_success else "FAILED", f"{row}.0", f"{row}.100")
     self.txt_log.see(END)
-    self.progbar_attacks.step(99.9 * (1 / len(self.payloads)))
+    self.progbar_attacks.step(99.9 * (1 / self.attack_manager.total_attacks))
     self.attack_num += 1

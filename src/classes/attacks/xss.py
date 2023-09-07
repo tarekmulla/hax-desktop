@@ -1,7 +1,9 @@
 """Module providing CrossSite Scripting injection attack"""
 from re import IGNORECASE, search
 
-from classes.attacks.attack import Attack
+from requests import Response
+
+from .attack import Attack
 
 XSS_SUCCESS_PATTEREN = r"<script[^\n]*>[^\n]*(`|\(\"|\(\')xss(`|\"\)|'\))[^\n]*<\/script[^\n]*>"
 
@@ -9,7 +11,7 @@ XSS_SUCCESS_PATTEREN = r"<script[^\n]*>[^\n]*(`|\(\"|\(\')xss(`|\"\)|'\))[^\n]*<
 class XssAttack(Attack):
   """Class represent a CrossSite attack"""
 
-  def is_attack_succeeded(self):
+  def is_attack_succeeded(self, response: Response) -> bool:
     """Examine the response content to identify whether the CrossSite Scripting attack was successful"""
-    response_body = self.response.content.decode()
+    response_body = response.content.decode()
     return search(pattern=XSS_SUCCESS_PATTEREN, string=response_body, flags=IGNORECASE)

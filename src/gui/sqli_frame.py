@@ -2,8 +2,8 @@
 # pylint: disable=R0801
 from tkinter import INSERT, Tk
 
+from classes.attacks.attack_manager import AttackManager
 from classes.attacks.enums import AttackType, RequestType
-from classes.attacks.sqli import SqliAttack
 from gui.attack_frame import AttackFrame
 
 
@@ -53,5 +53,5 @@ class SqliFrame(AttackFrame):
     request_type = RequestType[self.value_request_type.get()]
     parameters = self.input_parameters.get().split(",")
     placeholder_text = self.input_placeholder_text.get()
-    self.attack = SqliAttack(url, request_type, parameters, AttackType.SQLI)
-    self.start_attack(placeholder_text)
+    self.attack_manager = AttackManager(url, request_type, parameters, placeholder_text, AttackType.SQLI)
+    self.start_attack()

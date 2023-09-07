@@ -12,7 +12,7 @@ disable = [
   "W0201",
   "R0901" # too-many-ancestors
 ]
-ignore-patterns = ".*?_test.py"
+
 
 [tool.isort]
 multi_line_output = 3

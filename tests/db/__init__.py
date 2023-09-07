@@ -1,7 +1,7 @@
 """Database functionalities test module"""
 from sqlite3 import Connection
 
-from ... import TEST_DIR
+from .. import TEST_DIR
 
 
 class TestConnection(Connection):

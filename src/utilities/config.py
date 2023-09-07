@@ -1,5 +1,6 @@
 """"load all application configuration files (YAML format)"""
-from os.path import dirname, exists
+from os import makedirs
+from os.path import dirname, exists, join
 
 from classes.enums import ConfigType
 from classes.exception.application import ConfigException
@@ -11,7 +12,7 @@ BASE_DIR = dirname(dirname(__file__))
 
 def load_config(config_type) -> dict:
   """Load specific configuration file"""
-  file_path = f"{BASE_DIR}/.config/{config_type.value}"
+  file_path = join(BASE_DIR, ".config", config_type.value)
   if exists(file_path):
     with open(file_path, encoding="UTF-8") as config:
       data: dict = safe_load(config)
@@ -28,7 +29,10 @@ LOG = load_config(ConfigType.LOG)
 def get_db_path():
   """get the application database path"""
   if "name" in DB:
-    return f"{BASE_DIR}/{DB['name']}"
+    dp_path = join(BASE_DIR, DB["name"])
+    if not exists(dirname(dp_path)):
+      makedirs(dirname(dp_path))
+    return dp_path
   raise ConfigException("db")
 
 

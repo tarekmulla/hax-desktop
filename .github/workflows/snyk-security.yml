@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install -r hax/requirements.txt
+          python3 -m pip install -r requirements.txt
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python@master
@@ -37,7 +37,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=hax/requirements.txt --skip-unresolved --severity-threshold=high --sarif-file-output=snyk.sarif
+          args: --file=requirements.txt --skip-unresolved --severity-threshold=high --sarif-file-output=snyk.sarif
           command: test
 
       # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.

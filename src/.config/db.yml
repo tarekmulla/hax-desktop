@@ -1,4 +1,4 @@
-name: "hax.db"
+name: "db/hax.db"
 attack: |
   CREATE TABLE IF NOT EXISTS attack (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

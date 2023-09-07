@@ -13,17 +13,5 @@ test:
 run:
 	@python3 src/main.py
 
-install-website:
-	@cd website/webapp && \
-	npm install
-
-build-website:
-	@cd website/webapp && \
-	npm run build
-
-run-website:
-	@cd website/webapp && \
-	npx serve@latest out
-
 package:
 	@scripts/release.sh

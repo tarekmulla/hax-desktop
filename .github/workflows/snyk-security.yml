@@ -40,14 +40,6 @@ jobs:
           args: --file=requirements.txt --skip-unresolved --severity-threshold=high --sarif-file-output=snyk.sarif
           command: test
 
-      # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
-      # Use || true to not fail the pipeline.
-      - name: Snyk IaC test and report
-        run: snyk iac test --severity-threshold=high --report # || true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        working-directory: ./website/terraform
-
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:

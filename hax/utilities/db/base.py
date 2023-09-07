@@ -7,11 +7,13 @@ from classes.exception.database import DBException
 from utilities.config import DB, get_db_path
 from utilities.log import LogLevel, log_msg
 
+DATABASE_PATH = get_db_path()
+
 
 def execuate(command: str, args, with_commit: bool = False):
   """Execuate SQL command"""
   try:
-    with connect(get_db_path()) as con:
+    with connect(DATABASE_PATH) as con:
       cur = con.cursor()
       if args:
         cur.execute(command, args)
@@ -54,7 +56,7 @@ def fetch(command: str, args: tuple) -> list:
     result: list = cur.fetchall()
     cur.close()
     return result
-  except DBException:
+  except DBException as ex:
     return []
 
 

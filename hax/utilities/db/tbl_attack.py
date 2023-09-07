@@ -3,14 +3,7 @@ from classes.attack import Attack
 from classes.enums import AttackType, RequestType, Table
 
 from .base import Criteria
-from .commands import run_sql, select_all, select_item
-
-
-def add_attack(attack: Attack):
-  """Insert attack into database"""
-  command = "INSERT INTO attack (url, parameters) values (?, ?)"
-  args = (attack.url, attack.paramaters)
-  return run_sql(command, args)
+from .commands import run_sql, select_all, select_one_item
 
 
 def insert_attack(url: str, request_type: RequestType, attack_type: AttackType, parameters: str):
@@ -34,7 +27,7 @@ def update_attack(item_id: int, url: str, request_type: RequestType, attack_type
 
 def get_attack_by_url(url: str):
   """get attack from database using its url"""
-  return select_item(Table.ATTACK, [Criteria("url", url, Criteria.Op.EQ)])
+  return select_one_item(Table.ATTACK, [Criteria("url", url, Criteria.Op.EQ)])
 
 
 def get_all_attacks():

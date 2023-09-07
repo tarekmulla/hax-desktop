@@ -24,8 +24,16 @@ def select_all(table: Table):
   return run_sql(command)
 
 
-def select_item(table: Table, criteria: list[Criteria]):
-  """Select record from a table using criteria"""
+def select_one_item(table: Table, criteria: list[Criteria]):
+  """Select ONLY one record from a table using criteria"""
+  result = select_items(table, criteria)
+  if len(result) > 1:
+    raise SQLException("select_one_item return more than an item")
+  return result[0] if result else None
+
+
+def select_items(table: Table, criteria: list[Criteria]):
+  """Select records from a table using criteria"""
   args: tuple = ()
   conditions = []
   for item in criteria:
@@ -34,6 +42,4 @@ def select_item(table: Table, criteria: list[Criteria]):
   condition = ",".join(conditions)
   command = f"SELECT * FROM {Table(table).name} WHERE {condition}"  # noqa: S608
   result = run_sql(command, args)
-  if len(result) > 1:
-    raise SQLException(command)
-  return result[0] if result else None
+  return result

@@ -2,7 +2,7 @@
 from classes.enums import Table
 
 from .base import Criteria
-from .commands import run_sql, select_all, select_item
+from .commands import run_sql, select_all, select_one_item
 
 
 def update_setting(name: str, value: str):
@@ -20,8 +20,8 @@ def update_setting(name: str, value: str):
 
 
 def get_setting_by_name(name: str):
-  """get setting value from database"""
-  return select_item(Table.SETTING, [Criteria("name", name, Criteria.Op.EQ)])
+  """get specific setting value from database"""
+  return select_one_item(Table.SETTING, [Criteria("name", name, Criteria.Op.EQ)])
 
 
 def get_all_setting():

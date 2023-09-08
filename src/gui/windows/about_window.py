@@ -1,5 +1,5 @@
 """About window to show information about the application"""
-from gui.base_window import BaseWindow
+from gui.windows.base_window import BaseWindow
 from utilities.config import GENERAL, get_logo
 
 

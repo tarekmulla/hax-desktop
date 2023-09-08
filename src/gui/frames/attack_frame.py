@@ -3,7 +3,7 @@ from os.path import join
 from tkinter import END
 
 from classes.attacks.attack_manager import AttackManager
-from gui.base_frame import BaseFrame
+from gui.frames.base_frame import BaseFrame
 from utilities.config import BASE_DIR
 
 

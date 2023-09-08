@@ -4,12 +4,12 @@ from tkinter import PhotoImage
 from customtkinter import CTk
 
 from classes.gui.enums import Windows
-from gui.main_menu import MainMenu
-from gui.menubar import MenuBar
-from gui.sqli_frame import SqliFrame
+from gui.frames.sqli_frame import SqliFrame
+from gui.frames.xss_frame import XssFrame
+from gui.widgets.main_menu import MainMenu
+from gui.widgets.menubar import MenuBar
 from gui.windows.about_window import AboutWindow
 from gui.windows.setting_window import SettingWindow
-from gui.xss_frame import XssFrame
 from utilities.config import get_app_initial_size, get_app_min_size, get_icon
 from utilities.log import LogLevel, log_msg
 

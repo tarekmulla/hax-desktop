@@ -1,7 +1,7 @@
 """Base class for child windows in the application"""
 from customtkinter import CTk, CTkToplevel
 
-from .base_frame import BaseFrame
+from ..frames.base_frame import BaseFrame
 
 
 class BaseWindow(CTkToplevel):

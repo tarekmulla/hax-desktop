@@ -1,4 +1,4 @@
-from gui.xss_frame import XssFrame
+from gui.frames.xss_frame import XssFrame
 
 from . import FakeWindow
 

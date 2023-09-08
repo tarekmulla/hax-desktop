@@ -6,7 +6,7 @@ from customtkinter import CTk
 
 from classes.attacks.attack_manager import AttackManager
 from classes.attacks.enums import AttackType, RequestType
-from gui.attack_frame import AttackFrame
+from gui.frames.attack_frame import AttackFrame
 
 
 class XssFrame(AttackFrame):

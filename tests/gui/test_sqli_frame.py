@@ -1,4 +1,4 @@
-from gui.sqli_frame import SqliFrame
+from gui.frames.sqli_frame import SqliFrame
 
 from . import FakeWindow
 

@@ -1,7 +1,7 @@
 """Setting Window"""
 from tkinter import INSERT
 
-from gui.base_window import BaseWindow
+from gui.windows.base_window import BaseWindow
 from utilities.db.tbl_setting import get_all_setting, update_setting
 
 

@@ -12,9 +12,7 @@ class BaseFrame(CTkFrame):
   """Frame for sub windows in the application"""
   def __init__(self, master, title: str = ""):
     self.master = master
-    super().__init__(master)  # type: ignore[attr-defined]
-    self.master.columnconfigure(1, weight=1)
-    self.master.rowconfigure(0, weight=1)
+    super().__init__(master, fg_color="transparent")  # type: ignore[attr-defined]
     if title:
       self.master.title(title)  # type: ignore[attr-defined]
     self.__init_frame__()

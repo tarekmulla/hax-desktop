@@ -1,30 +1,32 @@
-"""Setting frame"""
+"""Setting Window"""
 from tkinter import INSERT
 
-from gui.base_frame import BaseFrame
+from gui.base_window import BaseWindow
 from utilities.db.tbl_setting import get_all_setting, update_setting
 
 
-class SettingFrame(BaseFrame):
+class SettingWindow(BaseWindow):
   """Setting frame"""
   def __init__(self, master):
-    super().__init__(master, "Setting")
+    super().__init__(master, "800x800", "Setting")
 
-  def __init_frame__(self):
-    super().__init_frame__()
+  def _init_main_frame(self):
+    super()._init_main_frame()
 
-    self.grid_columnconfigure(1, weight=1)
+    self.main_frame.grid_columnconfigure(1, weight=1)
 
-    self.add_label("AWS access key ID").grid(row=0, column=0)
-    self.aws_access_key_id = self.add_entry()
+    self.main_frame.add_label("AWS access key ID").grid(row=0, column=0)
+    self.aws_access_key_id = self.main_frame.add_entry()
     self.aws_access_key_id.grid(row=0, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
 
-    self.add_label("AWS secret access key").grid(row=1, column=0)
-    self.aws_secret_access_key = self.add_entry()
+    self.main_frame.add_label("AWS secret access key").grid(row=1, column=0)
+    self.aws_secret_access_key = self.main_frame.add_entry()
     self.aws_secret_access_key.grid(row=1, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
 
-    save_btn = self.add_button("Save", self.save_setting)
+    save_btn = self.main_frame.add_button("Save", self.save_setting)
     save_btn.grid(row=2, column=0, columnspan=2)
+
+    self.aws_access_key_id.focus_set()
 
   def set_default_input(self):
     """default value for the input"""

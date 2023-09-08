@@ -38,10 +38,17 @@ def get_db_path():
 
 
 def get_app_initial_size():
-  """get the application initial dimension"""
+  """get the application initial size"""
   if "size" in DESIGN:
     return DESIGN["size"]
   raise ConfigException("size")
+
+
+def get_app_min_size():
+  """get the application min size"""
+  if "min_size" in DESIGN:
+    return DESIGN["min_size"]
+  raise ConfigException("min_size")
 
 
 def get_icon():

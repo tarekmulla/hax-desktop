@@ -1,4 +1,10 @@
-size: "1100x555"
+size:
+  width: 1200
+  height: 600
+min_size:
+  width: 800
+  height: 400
+
 
 colors:
   primary: "#0077ff"

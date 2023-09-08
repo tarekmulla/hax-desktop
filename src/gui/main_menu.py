@@ -1,13 +1,12 @@
 """The main menu of the application"""
-from tkinter import Frame, Label
+from customtkinter import CTkButton, CTkFrame, CTkImage
+from PIL import Image
 
-from PIL import Image, ImageTk
-
-from classes.gui.enums import Color, Windows
-from utilities.config import get_color, get_image_path
+from classes.gui.enums import Windows
+from utilities.config import get_image_path
 
 
-class MainMenu(Frame):
+class MainMenu(CTkFrame):
   """The main menu of the application"""
   class MenuItem:
     """Class represent one menu item in the app"""
@@ -19,61 +18,42 @@ class MainMenu(Frame):
 
   def __init__(self, master):
     self.master = master
-    super().__init__(master, bg=get_color(Color.SECONDARY))
+    super().__init__(master, width=150, corner_radius=0)
     self.current_window = Windows.NONE
-    self.current_item = Label()
 
   def init_items(self, event_func):
     """Initialize the menu items"""
-    self.menu_items = [
+    self.menu_items_top = [
       MainMenu.MenuItem("XSS Attack", "xss.png", Windows.XSS),
-      MainMenu.MenuItem("SQLi Attack", "sqli.png", Windows.SQLI),
-      MainMenu.MenuItem(),
-      MainMenu.MenuItem(),
-      MainMenu.MenuItem(),
+      MainMenu.MenuItem("SQLi Attack", "sqli.png", Windows.SQLI)
+    ]
+    self.menu_items_down = [
       MainMenu.MenuItem("Setting", "setting.png", Windows.SETTING),
       MainMenu.MenuItem("About HaX", "about.png", Windows.ABOUT)
     ]
+    self.grid_rowconfigure(len(self.menu_items_top), weight=1)
 
-    for item in self.menu_items:
-      btn_frame = Frame(self, bg=get_color(Color.SECONDARY))
-      btn_frame.grid(column=0)
-      self.create_menu_item(btn_frame, f"{' '*5}{item.name}", item.image,
-                            item.window, event_func).grid()
-
-  def mouse_hover(self, event):
-    """Call when a mouse hover on menu item"""
-    if self.current_item is not event.widget:
-      event.widget["bg"] = get_color(Color.HOVER)
-
-  def mouse_leave(self, event):
-    """Call when a mouse leave the menu item"""
-    if self.current_item is not event.widget:
-      event.widget["bg"] = get_color(Color.SECONDARY)
+    row = 0
+    for item in self.menu_items_top:
+      btn = self.create_menu_item(self, item.name, item.image, item.window, event_func)
+      btn.grid(row=row, column=0, sticky="nsew")
+      row = row + 1
+    row = row + 1
+    for item in self.menu_items_down:
+      btn = self.create_menu_item(self, item.name, item.image, item.window, event_func)
+      btn.grid(row=row, column=0, sticky="nsew")
+      row = row + 1
 
   def mouse_click(self, event, window: Windows, click_event_func):
     """Call when a mouse click the menu item"""
     if self.current_window == window:
       return
     self.current_window = window
-    if self.current_item:
-      self.current_item["bg"] = get_color(Color.SECONDARY)  # type: ignore[attr-defined]
-    self.current_item = event.widget
-    self.current_item["bg"] = get_color(Color.HOVER)  # type: ignore[attr-defined]
     click_event_func(event, window)
 
   def create_menu_item(self, parent, text, image, window, click_event_func):
-    """Create Button label"""
-    if image and text:
-      img = ImageTk.PhotoImage((Image.open(get_image_path(image))).resize((30, 30)))
-      btn_lbl = Label(parent, width=200, height=50, text=text, image=img, compound='left',
-                      bg=get_color(Color.SECONDARY),
-                      foreground=get_color(Color.FORTH),
-                      anchor="w", cursor="hand2")
-      btn_lbl.image = img
-      btn_lbl.bind("<Button-1>", lambda e: self.mouse_click(e, window, click_event_func))
-      btn_lbl.bind("<Enter>", self.mouse_hover)
-      btn_lbl.bind("<Leave>", self.mouse_leave)
-    else:
-      btn_lbl = Label(parent, height=3, bg=get_color(Color.SECONDARY))
-    return btn_lbl
+    """Create Button as menu item"""
+    img = CTkImage(dark_image=Image.open(get_image_path(image)), size=(30, 30))
+    btn = CTkButton(parent, image=img, width=200, height=40, text=text, compound='left', anchor="w", corner_radius=0)
+    btn.bind("<Button-1>", lambda e: self.mouse_click(e, window, click_event_func))
+    return btn

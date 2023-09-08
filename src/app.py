@@ -1,5 +1,7 @@
 """Module of the main application form"""
-from tkinter import PhotoImage, Tk
+from tkinter import PhotoImage
+
+from customtkinter import CTk
 
 from classes.gui.enums import Windows
 from gui.about_frame import AboutFrame
@@ -12,7 +14,7 @@ from utilities.config import get_app_initial_size, get_icon
 from utilities.log import LogLevel, log_msg
 
 
-class App(Tk):
+class App(CTk):
   """The main application window"""
   def __init__(self):
     super().__init__()
@@ -25,7 +27,7 @@ class App(Tk):
     """Initialize the main form GUI components"""
     self.title("HaX Cybersecurity tool")
     self.geometry(get_app_initial_size())
-    self.resizable(False, False)
+    self.resizable(True, True)
 
     # Set the application icon
     photo = PhotoImage(file=get_icon())
@@ -35,9 +37,13 @@ class App(Tk):
     self.menubar.init_items()
     self.configure(menu=self.menubar)
 
+    self.grid_columnconfigure(1, weight=1)
+    self.grid_columnconfigure(0, weight=0)
+    self.grid_rowconfigure(0, weight=1)
+
     # init the main menu and place it in hte main window
     self.main_menu.init_items(self._fill_frame)
-    self.main_menu.grid(column=0, row=0, sticky="nsw")
+    self.main_menu.grid(column=0, row=0, sticky="nsew")
 
     # No frame is showing when app launch
     self.current_frame = None

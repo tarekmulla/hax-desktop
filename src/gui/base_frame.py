@@ -1,119 +1,90 @@
 """Base class for sub windows in the application"""
-from tkinter import Button, Entry, Frame, Label, OptionMenu, Scrollbar, StringVar, Text, ttk
 from webbrowser import open_new
 
-from PIL import Image, ImageTk
+from customtkinter import CTkButton, CTkEntry, CTkFrame, CTkImage, CTkLabel, CTkOptionMenu, CTkProgressBar, CTkTextbox
+from PIL import Image
 
 from classes.gui.enums import Color
 from utilities.config import get_color
 
 
-class BaseFrame(Frame):
+class BaseFrame(CTkFrame):
   """Frame for sub windows in the application"""
-  def __init__(self, master, title: str):
+  def __init__(self, master, title: str = ""):
     self.master = master
-    super().__init__(master, bg=get_color(Color.THIRD))  # type: ignore[attr-defined]
+    super().__init__(master)  # type: ignore[attr-defined]
     self.master.columnconfigure(1, weight=1)
     self.master.rowconfigure(0, weight=1)
-    self.master.title(title)  # type: ignore[attr-defined]
+    if title:
+      self.master.title(title)  # type: ignore[attr-defined]
     self.__init_frame__()
     self.set_default_input()
     self.is_ready = True
 
   def __init_frame__(self):
-    self.custom_style = ttk.Style()
-    self.custom_style.theme_use('clam')
-    self.custom_style.configure("progress.Horizontal.TProgressbar",
-                                background=get_color(Color.PRIMARY),
-                                troughcolor=get_color(Color.SECONDARY),
-                                darkcolor=get_color(Color.PRIMARY),
-                                lightcolor=get_color(Color.PRIMARY),
-                                bordercolor=get_color(Color.SECONDARY))
+    pass
 
   def __add_default__(self, widget_type, **parameters):
     """Add default parameters"""
-    if widget_type in [Button] and "highlightbackground" not in parameters:
-      parameters["highlightbackground"] = get_color(Color.THIRD)
-    if widget_type not in [ttk.Progressbar]:
-      if "fg" not in parameters:
-        parameters["fg"] = get_color(Color.SECONDARY)
-      if "bg" not in parameters and widget_type not in [Entry]:
-        parameters["bg"] = get_color(Color.THIRD)
-      elif widget_type is Entry:
-        parameters["background"] = get_color(Color.FORTH)
-
-      if widget_type is not Label:
-        if "highlightbackground" not in parameters:
-          parameters["highlightbackground"] = get_color(Color.BORDER)
-        if "highlightcolor" not in parameters:
-          parameters["highlightcolor"] = get_color(Color.PRIMARY)
-        if "highlightthickness" not in parameters:
-          parameters["highlightthickness"] = 1
+    if widget_type == type(CTkLabel):
+      if "text" not in parameters:
+        parameters["text"] = ""
     return parameters
 
   def add_widget(self, widget_type: type, **parameters):
     """Add widget to the frame in specific cell and parameters"""
     parameters = self.__add_default__(widget_type, **parameters)
-    widget = widget_type(self, **parameters)
+    if parameters:
+      widget = widget_type(self, **parameters)
+    else:
+      widget = widget_type(self)
     return widget
 
-  def add_image(self, path, row, col, padx=(0, 0), pady=(0, 0)):
+  def add_image(self, path, **parameters):
     """Add image to the frame in a specific grid cell"""
-    img = ImageTk.PhotoImage(Image.open(path))
-    img_widget = self.add_widget(Label, image=img, justify="center")
-    img_widget.grid(row=row, column=col, padx=padx, pady=pady)
+    img = CTkImage(dark_image=Image.open(path), **parameters)
+    img_widget = self.add_widget(CTkLabel, text="", image=img, justify="center")
     img_widget.image = img
     return img_widget
 
-  def add_link(self, text, link, row, col):
+  def add_link(self, text, link):
     """Add text link to the frame in a specific grid cell"""
-    lbl_link = self.add_widget(Label, fg=get_color(Color.PRIMARY),
+    lbl_link = self.add_widget(CTkLabel, text_color=get_color(Color.PRIMARY),
                                text=text, justify="center", cursor="hand2")
     lbl_link.bind("<Button-1>", lambda e: open_new(link))
-    lbl_link.grid(row=row, column=col)
+    return lbl_link
 
   def add_label(self, text, **parameters):
     """"Add label to the frame in a specific grid cell"""
-    lbl = self.add_widget(Label, text=text, **parameters)
+    lbl = self.add_widget(CTkLabel, text=text, **parameters)
     return lbl
 
   def add_entry(self, **parameters):
     """"Add entry to the frame in a specific grid cell"""
-    if "relief" not in parameters:
-      parameters["relief"] = "flat"
-    entry = self.add_widget(Entry, **parameters)
+    entry = self.add_widget(CTkEntry, **parameters)
     return entry
 
   def add_button(self, text, click_func, **parameters):
     """"Add button to the frame in a specific grid cell"""
     if "command" not in parameters:
       parameters["command"] = click_func
-    btn = self.add_widget(Button, text=text, **parameters)
+    btn = self.add_widget(CTkButton, text=text, **parameters)
     return btn
 
-  def add_progressbar(self, length):
+  def add_progressbar(self):
     """"Add progress bar to the frame in a specific grid cell"""
-    progbar = self.add_widget(ttk.Progressbar, style="progress.Horizontal.TProgressbar", orient="horizontal", mode="determinate", length=length)
-
+    progbar = CTkProgressBar(self)
+    progbar.set(0)
     return progbar
 
-  def add_option(self, name, *value, **parameters):
+  def add_option(self, *value):
     """"Add option menu to the frame in a specific grid cell"""
-    variables = StringVar(self)
-    variables.set(name)
-    self.__add_default__(OptionMenu, **parameters)
-    option = OptionMenu(self, variables, *value, **parameters)
-    option.config(bg=get_color(Color.THIRD),
-                  fg=get_color(Color.SECONDARY))
-    return (option, variables)
+    option = CTkOptionMenu(self, dynamic_resizing=False, values=value)
+    return option
 
-  def add_log(self, row, col, colspan, height):
+  def add_log(self):
     """"Add log output to the frame in a specific grid cell"""
-    ver_scrollbar = Scrollbar(self, orient="vertical")
-    txt_log = self.add_widget(Text, height=height, yscrollcommand=ver_scrollbar.set, relief="flat")
-    ver_scrollbar.config(command=txt_log.yview)
-    txt_log.grid(row=row, column=col, columnspan=colspan, padx=(10, 0))
-    ver_scrollbar.grid(row=row, column=col+colspan, sticky="nsw")
+    txt_log = self.add_widget(CTkTextbox)
     return txt_log
 
   def set_default_input(self):

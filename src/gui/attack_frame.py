@@ -20,8 +20,8 @@ class AttackFrame(BaseFrame):
   def __init_frame__(self):
     """Initialize frame components"""
     super().__init_frame__()
-    self.progbar_attacks = self.add_progressbar(500)
-    self.txt_log = self.add_log(7, 0, 2, 12)
+    self.progbar_attacks = self.add_progressbar()
+    self.txt_log = self.add_log()
 
   def set_default_input(self):
     """default value for the input"""
@@ -51,5 +51,5 @@ class AttackFrame(BaseFrame):
     # add tag using indices for the part of text to be highlighted
     self.txt_log.tag_add("SUCCESS" if is_success else "FAILED", f"{row}.0", f"{row}.100")
     self.txt_log.see(END)
-    self.progbar_attacks.step(99.9 * (1 / self.attack_manager.total_attacks))
     self.attack_num += 1
+    self.progbar_attacks.set(self.attack_num / self.attack_manager.total_attacks)

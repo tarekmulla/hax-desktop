@@ -13,17 +13,18 @@ class SettingFrame(BaseFrame):
   def __init_frame__(self):
     super().__init_frame__()
 
+    self.grid_columnconfigure(1, weight=1)
+
     self.add_label("AWS access key ID").grid(row=0, column=0)
-    self.aws_access_key_id = self.add_entry(width=40)
-    self.aws_access_key_id.grid(row=0, column=1, pady=(10, 5))
+    self.aws_access_key_id = self.add_entry()
+    self.aws_access_key_id.grid(row=0, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
 
     self.add_label("AWS secret access key").grid(row=1, column=0)
-    self.aws_secret_access_key = self.add_entry(width=40)
-    self.aws_secret_access_key.grid(row=1, column=1)
+    self.aws_secret_access_key = self.add_entry()
+    self.aws_secret_access_key.grid(row=1, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
 
     save_btn = self.add_button("Save", self.save_setting)
-    save_btn.grid(row=2, column=1)
-    save_btn.focus_set()
+    save_btn.grid(row=2, column=0, columnspan=2)
 
   def set_default_input(self):
     """default value for the input"""

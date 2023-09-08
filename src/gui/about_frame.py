@@ -14,8 +14,10 @@ class AboutFrame(BaseFrame):
     about = GENERAL["about"]
 
     self.columnconfigure(0, weight=1)
-    self.add_image(get_logo(), 0, 0, pady=(25, 0))
-    self.add_label(about, justify="center", wraplength=550).grid(row=1, column=0)
+    self.rowconfigure(0, weight=2)
+    self.rowconfigure((1, 2), weight=1)
 
-    self.add_link(link, link, 2, 0)
-    self.add_link(link, link, 2, 0)
+    img_logo = self.add_image(get_logo(), size=(300, 160))
+    img_logo.grid(row=0, column=0, pady=(0, 10), sticky="news")
+    self.add_label(about, justify="center").grid(row=1, column=0)
+    self.add_link(link, link).grid(row=2, column=0, pady=(0, 50))

@@ -4,8 +4,9 @@ create-env:
 	source ./.venv/bin/activate &&\
 	python3 -m pip install -r requirements.txt
 
-install-tk:
-	@brew install python-tk
+install-tools:
+	@brew install python-tk && \
+	brew install hashcat
 
 test:
 	@pytest --cov=src tests/

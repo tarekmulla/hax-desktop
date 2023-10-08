@@ -25,7 +25,8 @@ class MainMenu(CTkFrame):
     """Initialize the menu items"""
     self.menu_items_top = [
       MainMenu.MenuItem("XSS Attack", "xss.png", Windows.XSS),
-      MainMenu.MenuItem("SQLi Attack", "sqli.png", Windows.SQLI)
+      MainMenu.MenuItem("SQLi Attack", "sqli.png", Windows.SQLI),
+      MainMenu.MenuItem("Crack Password", "password.png", Windows.CRACK_PASS),
     ]
     self.menu_items_down = [
       MainMenu.MenuItem("Setting", "setting.png", Windows.SETTING),

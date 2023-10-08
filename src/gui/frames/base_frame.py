@@ -62,6 +62,14 @@ class BaseFrame(CTkFrame):
     entry = self.add_widget(CTkEntry, **parameters)
     return entry
 
+  def add_num_entry(self, **parameters):
+    """"Add numeric entry to the frame in a specific grid cell"""
+    vcmd = (self.register(lambda P: str.isdigit(P) or P == ""))
+    parameters["validate"] = "all"
+    parameters["validatecommand"] = (vcmd, '%P')
+    entry = self.add_widget(CTkEntry, **parameters)
+    return entry
+
   def add_button(self, text, click_func, **parameters):
     """"Add button to the frame in a specific grid cell"""
     if "command" not in parameters:

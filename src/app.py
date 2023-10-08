@@ -4,6 +4,7 @@ from tkinter import PhotoImage
 from customtkinter import CTk
 
 from classes.gui.enums import Windows
+from gui.frames.crack_password_frame import CrackPasswordFrame
 from gui.frames.sqli_frame import SqliFrame
 from gui.frames.xss_frame import XssFrame
 from gui.widgets.main_menu import MainMenu
@@ -78,6 +79,8 @@ class App(CTk):
         self.current_frame = XssFrame(self)
       elif window == Windows.SQLI:
         self.current_frame = SqliFrame(self)
+      elif window == Windows.CRACK_PASS:
+        self.current_frame = CrackPasswordFrame(self)
       else:
         raise NotImplementedError(f"The frame '{window}' hasn't implemented yet")
       # show the frame into the main window

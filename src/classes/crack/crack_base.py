@@ -7,7 +7,7 @@ class CrackBase:
   def __init__(self, crack_type: CrackType):
     self.crack_type = crack_type
 
-  def start(self, hash_pass, stop_flag, update_status_func):
+  def start(self, hash_pass, hash_algo, stop_flag, update_status_func):
     """Start cracking process"""
     if not stop_flag():
       return False

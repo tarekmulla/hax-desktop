@@ -15,12 +15,11 @@ from utilities.config import BASE_DIR
 
 class Rainbow(CrackBase):
   """Class to perform rainbow password cracking"""
-  def __init__(self, password_rule: PasswordRule, length: int, depth: int, hash_algorithm: HashAlgorithm):
+  def __init__(self, password_rule: PasswordRule, length: int, depth: int):
     super().__init__(CrackType.RAINBOW)
     self.password_rule = password_rule
     self.length = length
     self.depth = depth
-    self.hash_algorithm = hash_algorithm
 
   def get_all_passwords(self):
     """Rainbow table generation method"""
@@ -97,7 +96,7 @@ class Rainbow(CrackBase):
       if self.hash_algorithm == HashAlgorithm.MD5:
         hash_result = md5(pass_to_hash)
         hash_hexdigest = hash_result.hexdigest()
-      elif self.hash_algorithm == HashAlgorithm.SHA265:
+      elif self.hash_algorithm == HashAlgorithm.SHA256:
         hash_result = sha256(pass_to_hash)
         hash_hexdigest = hash_result.hexdigest()
       elif self.hash_algorithm == HashAlgorithm.BCRYPT:
@@ -139,8 +138,9 @@ class Rainbow(CrackBase):
               return pair[0].decode()
     return None
 
-  def start(self, hash_pass, stop_flag, update_status_func):
+  def start(self, hash_pass, hash_algorithm: HashAlgorithm, stop_flag, update_status_func):
     """Start rainbow cracking process"""
+    self.hash_algorithm = hash_algorithm
     all_passwords = self.get_all_passwords()
     self.generate_rainbow_table(all_passwords, stop_flag, update_status_func)
     password = self.crack_password(hash_pass, update_status_func)

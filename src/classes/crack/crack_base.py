@@ -2,14 +2,15 @@
 from classes.crack.enums import CrackType
 
 
+# pylint: disable=too-few-public-methods
 class CrackBase:
   """Class represents Cyber Attack"""
   def __init__(self, crack_type: CrackType):
     self.crack_type = crack_type
 
-  def start(self, hash_pass, hash_algo, stop_flag, update_status_func):
+  # pylint: disable=unused-argument
+  def start(self, hash_pass, hash_algorithm, stop_flag, update_status_func):
     """Start cracking process"""
     if not stop_flag():
-      return False
+      return
     update_status_func()
-    return hash_pass

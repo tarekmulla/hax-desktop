@@ -1,10 +1,8 @@
 """Perform password cracking using brute-force"""
 from hashlib import md5, sha256
 from itertools import product
-from os import makedirs, remove
+from os import makedirs
 from os.path import dirname, exists, join
-from shlex import split
-from subprocess import PIPE, Popen
 
 import bcrypt
 
@@ -57,50 +55,21 @@ class BruteForce(CrackBase):
 
   def start(self, hash_pass, hash_algorithm: HashAlgorithm, stop_flag, update_status_func):
     """Start brute-force password cracking process using hashcat"""
-    password_file = self._generate_password_file(hash_pass)
-    rules_file = self._generate_rules_file(self.wordlist_rules)
-    try:
-      algorithm_code = 0
-      if hash_algorithm == HashAlgorithm.MD5:
-        algorithm_code = 0
-      elif hash_algorithm == HashAlgorithm.BCRYPT:
-        algorithm_code = 3200
-      elif hash_algorithm == HashAlgorithm.SHA256:
-        algorithm_code = 1420
-
-      command = f"hashcat -m {algorithm_code} '{password_file}' '{self.wordlist_file}' -r '{rules_file}'"
-      args = split(command)
-      pipe = Popen(args, stdout=PIPE)
-      pipe.communicate()
-      password_output = Popen(split(f"{command} --show"), stdout=PIPE).communicate()[0]
-      if password_output:
-        password_hash = password_output.decode().split(":")
-        password = password_hash[1] if len(password_hash) == 2 else None
-    except Exception as ex:
-      password = None
-
-    if password:
-      update_status_func(0, 0, f"Password found, the password is: {password}")
-    else:
-      update_status_func(0, 0, "Password not found!")
-    remove(password_file)
-    remove(rules_file)
-
-  def start2(self, hash_pass, hash_algorithm: HashAlgorithm, stop_flag, update_status_func):
-    """Start brute-force password cracking process using hashcat"""
-    password = self.find_hash(hash_pass, hash_algorithm)
+    password = self.find_hash(hash_pass, hash_algorithm, stop_flag)
     if password:
       update_status_func(0, 0, f"Password found, the password is: {password}")
     else:
       update_status_func(0, 0, "Password not found!")
 
-  def find_hash(self, hash_pass, hash_algorithm: HashAlgorithm):
+  def find_hash(self, hash_pass, hash_algorithm: HashAlgorithm, stop_flag: bool):
     """Find hash based on wordlist"""
     with open(self.wordlist_file, "r", encoding="UTF-8") as file:
       wordlist = file.readlines()
     hash_pass_hexdigest = hash_pass.encode()
     for word in wordlist:
-      word_bytes = "grandmother".strip().encode()
+      if stop_flag:
+        break
+      word_bytes = word.strip().encode()
       if hash_algorithm == HashAlgorithm.MD5:
         hash_result = md5(word_bytes)
         hash_hexdigest = hash_result.hexdigest()
@@ -109,6 +78,7 @@ class BruteForce(CrackBase):
         hash_hexdigest = hash_result.hexdigest()
       elif hash_algorithm == HashAlgorithm.BCRYPT:
         salt = bcrypt.gensalt()
-        hash_hexdigest = bcrypt.hashpw(word_bytes, salt)
+        hash_hexdigest = bcrypt.hashpw(word_bytes, salt).decode()
       if hash_pass_hexdigest == hash_hexdigest:
         return word
+    return None

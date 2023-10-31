@@ -1,5 +1,7 @@
 """Class to define wordlist rules"""
 
+
+# pylint: disable=too-few-public-methods
 class WordlistRules:
   """Class to represent password rules"""
   def __init__(self, is_double, prefix_charset, prefix_count, postfix_charset, postfix_count):

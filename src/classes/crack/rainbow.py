@@ -60,8 +60,7 @@ class Rainbow(CrackBase):
     if exists(rainbow_file):
       update_status_func(0, 0, "Rainbow table already exist, no need to generate a new one.")
       return
-    else:
-      update_status_func(0, 0, "Rainbow table NOT exist, generating it now.")
+    update_status_func(0, 0, "Rainbow table NOT exist, generating it now.")
     with open(rainbow_file, "w", encoding="UTF-8") as rainbow_table:
       loop_count = len(passwords)
       rainbow_table.write("password,hash\n")
@@ -106,6 +105,7 @@ class Rainbow(CrackBase):
     return chain
 
   def find_hash(self, hash_pass):
+    """Crack the password hased in a specific algorithm"""
     rainbow_file = self._get_rainbow_table_file()
     chunksize = 10 ** 6
     dtype = {"password": str, "hash": str}
@@ -116,6 +116,7 @@ class Rainbow(CrackBase):
           hash_val = row[1]
           if hash_val == hash_pass:
             return row[0]
+    return None
 
   def crack_password(self, hash_pass, update_status_func):
     """Crack hashed password"""
@@ -125,17 +126,17 @@ class Rainbow(CrackBase):
       update_status_func(0, 0, "The hash found into the rainbow table")
       chain = self._get_chain(chain_start.encode())
       return chain[self.depth-1][0].decode()
-    else:
-      update_status_func(0, 0, "The hash NOT found into the rainbow table, checking the hash chain...")
-      chain_start = str(int(hash_pass, 16) % 10000).zfill(4)
-      chain = self._get_chain(chain_start.encode())
-      for pair in chain:
-        chain_start = self.find_hash(pair[1])
-        if chain_start:
-          new_chain = self._get_chain(chain_start.encode())
-          for pair in new_chain:
-            if pair[1] == hash_pass:
-              return pair[0].decode()
+
+    update_status_func(0, 0, "The hash NOT found into the rainbow table, checking the hash chain...")
+    chain_start = str(int(hash_pass, 16) % 10000).zfill(4)
+    chain = self._get_chain(chain_start.encode())
+    for pair in chain:
+      chain_start = self.find_hash(pair[1])
+      if chain_start:
+        new_chain = self._get_chain(chain_start.encode())
+        for pair in new_chain:
+          if pair[1] == hash_pass:
+            return pair[0].decode()
     return None
 
   def start(self, hash_pass, hash_algorithm: HashAlgorithm, stop_flag, update_status_func):

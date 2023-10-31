@@ -25,6 +25,7 @@ class ManglingOptions(Enum):
     # pylint: disable=W0212,E1101
     return ManglingOptions._member_names_
 
+
 class HashAlgorithm(Enum):
   """Supported hash algorithms"""
   MD5 = 1

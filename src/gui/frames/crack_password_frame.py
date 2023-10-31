@@ -6,7 +6,7 @@ from customtkinter import CTk
 
 from classes.crack.brute_force import BruteForce
 from classes.crack.crack_pass_manager import CrackPassManager
-from classes.crack.enums import CrackType, HashAlgorithm, ManglingOptions
+from classes.crack.enums import CrackType, HashAlgorithm
 from classes.crack.password_rule import PasswordRule
 from classes.crack.rainbow import Rainbow
 from classes.crack.wordlist_rules import WordlistRules

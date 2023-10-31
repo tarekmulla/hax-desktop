@@ -1,7 +1,7 @@
 """Base class for sub windows in the application"""
 from webbrowser import open_new
 
-from customtkinter import CTkButton, CTkEntry, CTkFrame, CTkImage, CTkLabel, CTkOptionMenu, CTkProgressBar, CTkTextbox
+from customtkinter import CTkButton, CTkCheckBox, CTkEntry, CTkFrame, CTkImage, CTkLabel, CTkOptionMenu, CTkProgressBar, CTkTextbox
 from PIL import Image
 
 from classes.gui.enums import Color
@@ -62,6 +62,14 @@ class BaseFrame(CTkFrame):
     entry = self.add_widget(CTkEntry, **parameters)
     return entry
 
+  def add_num_entry(self, **parameters):
+    """"Add numeric entry to the frame in a specific grid cell"""
+    vcmd = (self.register(lambda P: str.isdigit(P) or P == ""))
+    parameters["validate"] = "all"
+    parameters["validatecommand"] = (vcmd, '%P')
+    entry = self.add_widget(CTkEntry, **parameters)
+    return entry
+
   def add_button(self, text, click_func, **parameters):
     """"Add button to the frame in a specific grid cell"""
     if "command" not in parameters:
@@ -75,9 +83,17 @@ class BaseFrame(CTkFrame):
     progbar.set(0)
     return progbar
 
-  def add_option(self, *value):
+  def add_checkbox(self, text, check_var, callback=None):
+    """Add checkbox input"""
+    checkbox = self.add_widget(CTkCheckBox, text=text, variable=check_var,
+                               onvalue="on", offvalue="off",
+                               command=callback)
+    return checkbox
+
+  def add_option(self, *value, callback=None):
     """"Add option menu to the frame in a specific grid cell"""
-    option = CTkOptionMenu(self, dynamic_resizing=False, values=value)
+    option = CTkOptionMenu(self, dynamic_resizing=False, values=value,
+                           command=callback)
     return option
 
   def add_log(self):

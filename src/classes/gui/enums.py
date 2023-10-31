@@ -7,6 +7,7 @@ class Windows(Enum):
   NONE = 0
   XSS = 1
   SQLI = 2
+  CRACK_PASS = 10
   SETTING = 20
   ABOUT = 30
 

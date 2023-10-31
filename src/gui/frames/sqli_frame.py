@@ -36,7 +36,7 @@ class SqliFrame(AttackFrame):
     self.input_placeholder_text.grid(row=2, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
 
     self.add_label("Request type").grid(row=3, column=0)
-    self.opt_request_type = self.add_option("Request type", *(RequestType.get_names()))
+    self.opt_request_type = self.add_option(*(RequestType.get_names()))
     self.opt_request_type.grid(row=3, column=1, padx=(10, 10), pady=(10, 10), sticky="w")
 
     self.add_button("Start Attack", self.init_attack).grid(row=4, column=0, columnspan=2)

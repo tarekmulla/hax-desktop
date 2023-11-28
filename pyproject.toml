@@ -25,11 +25,3 @@ warn_return_any = true
 warn_unused_configs = true
 namespace_packages = false
 ignore_missing_imports = true
-
-[tool.poetry]
-name = "hax"
-version = "1.0.0"
-description = "HaX is an AI-powered Cybersecurity tool designed to detect website vulnerabilities"
-authors = ["Tarek Mulla <tarek@mulla.au>"]
-readme = "README.md"
-packages = [{include = "src"}]

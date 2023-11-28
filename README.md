@@ -5,7 +5,7 @@
 HaX is an AI-powered Cybersecurity tool designed to detect website vulnerabilities. Its cloud connection enhances capabilities for advanced analytics and modeling.
 
 <p align="center">
-  <img src="/images/logo.png" alt="design" width="40%"/>
+  <img src="/docs/images/logo.png" alt="design" width="40%"/>
 </p>
 
 
@@ -48,8 +48,8 @@ _**Note**: Those steps are working for both macOS, and Linux_
 - Download and install python latest version, [check here](https://www.python.org/downloads/).
 - Install pip, [check here](https://pip.pypa.io/en/stable/installation/).
 - Install TKinter `brew install python-tk` or `make install-tk`. _**Note**: You need to have brew installed_.
-- Set up a Python Virtual Environment (venv) by executing `make create-env` and then switch to the newly created venv using the command: `source ./.venv/bin/activate`. It's worth noting that the `make` command automatically installs the necessary libraries listed in [requirements.txt](./requirements.txt). If you prefer using your local environment instead of venv, you can achieve the same by running `python -m pip install -r requirements.txt` to install the required libraries.
-- The entry point is [./src/main.py](./src/main.py), You can start the application by running `make run` or `python3 ./src/main.py`.
+- Set up a Python Virtual Environment (venv) by executing `make create-env` and then switch to the newly created venv using the command: `source ./.venv/bin/activate`. It's worth noting that the `make` command automatically installs the necessary libraries listed in [requirements.txt for core](./src/core/requirements.txt) and [requirements.txt for desktop](./src/desktop/requirements.txt). If you prefer using your local environment instead of venv, you can achieve the same by running `python -m pip install -r ./src/core/requirements.txt` and `python -m pip install -r ./src/desktop/requirements.txt` to install the required libraries.
+- The entry point for the desktop app is [./src/desktop/main.py](./src/main.py), You can start the application by running `make run` or `python3 ./src/desktop/main.py`.
 
 
 ## Who do I talk to?

@@ -5,7 +5,7 @@
       "name": "Python: Run HaX",
       "type": "python",
       "request": "launch",
-      "program": "src/main.py",
+      "program": "src/desktop/main.py",
       "console": "integratedTerminal",
       "justMyCode": true
     }

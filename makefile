@@ -2,7 +2,9 @@ create-env:
 	@pip3 install virtualenv && \
 	python3 -m venv ./.venv && \
 	source ./.venv/bin/activate &&\
-	python3 -m pip install -r requirements.txt
+	pip install --upgrade pip &&\
+	python3 -m pip install -r src/core/requirements.txt &&\
+	python3 -m pip install -r src/desktop/requirements.txt
 
 install-tools:
 	@brew install python-tk && \
@@ -11,8 +13,8 @@ install-tools:
 test:
 	@pytest --cov=src tests/
 
-run:
-	@python3 src/main.py
+run-desktop:
+	@python3 src/desktop/main.py
 
-package:
+package-desktop:
 	@scripts/release.sh

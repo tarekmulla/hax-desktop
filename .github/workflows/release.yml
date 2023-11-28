@@ -40,7 +40,9 @@ jobs:
         run: |
           brew install create-dmg
           python -m pip install --upgrade pip
-          pip install -r requirements.txt pyinstaller
+          pip install -r src/core/requirements.txt
+          pip install -r src/desktop/requirements.txt
+          pip install pyinstaller
 
       - name: Package ${{matrix.TARGET}} version
         run: |

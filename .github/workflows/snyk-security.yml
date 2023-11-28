@@ -32,30 +32,16 @@ jobs:
           pip install -r src/core/requirements.txt
           pip install -r src/desktop/requirements.txt
 
-      - name: Run Snyk to check for vulnerabilities in Core src
+      - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=src/core/requirements.txt --skip-unresolved --severity-threshold=high --sarif-file-output=snyk_core.sarif
-          command: test
+          args: --skip-unresolved --severity-threshold=high --sarif-file-output=snyk.sarif
+          command: test --all-projects
 
-      - name: Run Snyk to check for vulnerabilities in Desktop src
-        uses: snyk/actions/python-3.10@master
-        continue-on-error: true # To make sure that SARIF upload gets called
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --file=src/desktop/requirements.txt --skip-unresolved --severity-threshold=high --sarif-file-output=snyk_desktop.sarif
-          command: test
-
-      - name: Upload core result to GitHub Code Scanning
+      - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk_core.sarif
-
-      - name: Upload desktop result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk_desktop.sarif
+          sarif_file: snyk.sarif

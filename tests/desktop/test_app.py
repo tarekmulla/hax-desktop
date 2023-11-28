@@ -1,4 +1,4 @@
-from app import App
+from desktop.app import App
 
 
 def test_app():

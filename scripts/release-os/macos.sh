@@ -1,10 +1,8 @@
 echo "\n\nBundles the application and all its dependencies into a single package (.app)"
 pyinstaller --noconfirm --windowed --name="HaX" \
-            --icon="src/static/images/icon.png" \
-            --add-data="src/.config:.config" \
-            --add-data="src/.payloads:.payloads" \
-            --add-data="src/static:static" \
-            src/main.py
+            --icon="src/core/assets/images/icon.png" \
+            --add-data="src/core/assets:core/assets" \
+            src/desktop/main.py
 
 echo "\n\nCreate a release folder"
 mkdir -p release/macos
@@ -19,7 +17,7 @@ test -f "release/HaX.dmg" && rm "release/HaX.dmg"
 echo "\n\nCreating the new release:"
 create-dmg \
   --volname "HaX" \
-  --volicon "src/static/images/icon.png" \
+  --volicon "src/core/assets/images/icon.png" \
   --window-pos 200 120 \
   --window-size 600 300 \
   --icon-size 100 \

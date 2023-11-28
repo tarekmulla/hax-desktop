@@ -1,6 +1,6 @@
 # Code of conduct
 
-TLabs expects contributors to act professionally and respectfully.
+We expects contributors to act professionally and respectfully.
 
 Specifically:
 

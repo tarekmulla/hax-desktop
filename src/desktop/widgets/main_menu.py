@@ -4,18 +4,11 @@ from PIL import Image
 
 from core.classes.gui.enums import Windows
 from core.utilities.config import get_icon, get_image_path
+from desktop.widgets.classes.menu_item import MenuItem
 
 
 class MainMenu(CTkFrame):
   """The main menu of the application"""
-  class MenuItem:
-    """Class represent one menu item in the app"""
-    # pylint: disable=too-few-public-methods
-    def __init__(self, name="", image="", window=Windows.NONE):
-      self.name = name
-      self.image = image
-      self.window = window
-
   def __init__(self, master):
     self.master = master
     super().__init__(master, width=150, corner_radius=0)
@@ -24,13 +17,13 @@ class MainMenu(CTkFrame):
   def init_items(self, event_func):
     """Initialize the menu items"""
     self.menu_items_top = [
-      MainMenu.MenuItem("XSS Attack", "xss.png", Windows.XSS),
-      MainMenu.MenuItem("SQLi Attack", "sqli.png", Windows.SQLI),
-      MainMenu.MenuItem("Crack Password", "password.png", Windows.CRACK_PASS),
+      MenuItem("XSS Attack", "xss.png", Windows.XSS),
+      MenuItem("SQLi Attack", "sqli.png", Windows.SQLI),
+      MenuItem("Crack Password", "password.png", Windows.CRACK_PASS),
     ]
     self.menu_items_down = [
-      MainMenu.MenuItem("Setting", "setting.png", Windows.SETTING),
-      MainMenu.MenuItem("About HaX", "about.png", Windows.ABOUT)
+      MenuItem("Setting", "setting.png", Windows.SETTING),
+      MenuItem("About HaX", "about.png", Windows.ABOUT)
     ]
     self.grid_rowconfigure(len(self.menu_items_top)+1, weight=1)
 

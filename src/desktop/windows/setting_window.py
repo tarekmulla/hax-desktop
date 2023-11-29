@@ -1,45 +1,41 @@
 """Setting Window"""
-from tkinter import INSERT
-
-from core.utilities.db.tbl_setting import get_all_setting, update_setting
+from core.classes.gui.enums import Windows
+from core.utilities.log import LogLevel, log_msg
+from desktop.frames.setting.cloud import CloudSettingFrame
+from desktop.widgets.setting_menu import SettingMenu
 from desktop.windows.base_window import BaseWindow
 
 
 class SettingWindow(BaseWindow):
   """Setting frame"""
   def __init__(self, master):
-    super().__init__(master, "800x800", "Setting")
+    super().__init__(master, "600x400", "Setting")
 
   def _init_main_frame(self):
-    super()._init_main_frame()
+    self.grid_columnconfigure(1, weight=1)
+    self.grid_columnconfigure(0, weight=0)
+    self.grid_rowconfigure(0, weight=1)
 
-    self.main_frame.grid_columnconfigure(1, weight=1)
+    # init the main menu and place it in the main window
+    self.main_menu = SettingMenu(master=self)
+    self.main_menu.init_items(self._fill_frame)
+    self.main_menu.grid(column=0, row=0, sticky="nsew")
 
-    self.main_frame.add_label("AWS access key ID").grid(row=0, column=0)
-    self.aws_access_key_id = self.main_frame.add_entry()
-    self.aws_access_key_id.grid(row=0, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
+    # No frame is showing when app launch
+    self.current_frame = None
 
-    self.main_frame.add_label("AWS secret access key").grid(row=1, column=0)
-    self.aws_secret_access_key = self.main_frame.add_entry()
-    self.aws_secret_access_key.grid(row=1, column=1, padx=(10, 10), pady=(10, 10), sticky="ew")
+  def _fill_frame(self, event, window: Windows):
+    # pylint: disable=unused-argument
+    """Fill a frame into the main window when the user select window"""
+    if self.current_frame:
+      self.current_frame.destroy()
+      self.current_frame = None
+    # initialize the new frame
+    if window == Windows.CLOUD_SETTING:
+      self.current_frame = CloudSettingFrame(self)
+    else:
+      raise NotImplementedError(f"The frame '{window}' hasn't implemented yet")
+    # show the frame into the main window
+    self.current_frame.grid(row=0, column=1, sticky="nsew")
 
-    save_btn = self.main_frame.add_button("Save", self.save_setting)
-    save_btn.grid(row=2, column=0, columnspan=2)
-
-    self.aws_access_key_id.focus_set()
-
-  def set_default_input(self):
-    """default value for the input"""
-    super().set_default_input()
-    setting = get_all_setting()
-    aws_access_key_id = setting.get("aws_access_key_id") if "aws_access_key_id" in setting else ""
-    aws_secret_access_key = setting.get("aws_secret_access_key") if "aws_secret_access_key" in setting else ""
-    self.aws_access_key_id.insert(INSERT, aws_access_key_id)
-    self.aws_secret_access_key.insert(INSERT, aws_secret_access_key)
-
-  def save_setting(self):
-    """Save setting"""
-    aws_access_key_id = self.aws_access_key_id.get()
-    aws_secret_access_key = self.aws_secret_access_key.get()
-    update_setting("aws_access_key_id", aws_access_key_id)
-    update_setting("aws_secret_access_key", aws_secret_access_key)
+    log_msg(f"{window} opened", LogLevel.INFO)

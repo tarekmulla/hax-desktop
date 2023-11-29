@@ -20,7 +20,7 @@ class BaseFrame(CTkFrame):
     self.is_ready = True
 
   def __init_frame__(self):
-    pass
+    self.grid(padx=10)
 
   def __add_default__(self, widget_type, **parameters):
     """Add default parameters"""

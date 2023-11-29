@@ -1,6 +1,6 @@
 
 
-from desktop.windows.setting_window import SettingWindow
+from desktop.frames.setting.cloud import CloudSettingFrame
 
 from . import FakeWindow
 
@@ -8,5 +8,5 @@ from . import FakeWindow
 def test_setting_frame():
   """Test creating setting frame"""
   main_window = FakeWindow()
-  setting_frame = SettingWindow(main_window)
+  setting_frame = CloudSettingFrame(main_window)
   assert setting_frame.is_ready

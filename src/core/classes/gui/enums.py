@@ -9,6 +9,9 @@ class Windows(Enum):
   SQLI = 2
   CRACK_PASS = 10
   SETTING = 20
+  GENERAL_SETTING = 21
+  APPEARANCE_SETTING = 22
+  CLOUD_SETTING = 23
   ABOUT = 30
 
 

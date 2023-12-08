@@ -28,4 +28,5 @@ class BaseWindow(CTkToplevel):
 
   def set_default_input(self):
     """Set default value for the window widgets"""
-    self.main_frame.set_default_input()
+    if hasattr(self, "main_frame"):
+      self.main_frame.set_default_input()

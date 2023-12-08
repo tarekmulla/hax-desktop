@@ -1,7 +1,9 @@
 """Setting Window"""
 from core.classes.gui.enums import Windows
 from core.utilities.log import LogLevel, log_msg
+from desktop.frames.setting.apperance import AppearanceSettingFrame
 from desktop.frames.setting.cloud import CloudSettingFrame
+from desktop.frames.setting.general import GeneralSettingFrame
 from desktop.widgets.setting_menu import SettingMenu
 from desktop.windows.base_window import BaseWindow
 
@@ -33,6 +35,10 @@ class SettingWindow(BaseWindow):
     # initialize the new frame
     if window == Windows.CLOUD_SETTING:
       self.current_frame = CloudSettingFrame(self)
+    elif window == Windows.GENERAL_SETTING:
+      self.current_frame = GeneralSettingFrame(self)
+    elif window == Windows.APPEARANCE_SETTING:
+      self.current_frame = AppearanceSettingFrame(self)
     else:
       raise NotImplementedError(f"The frame '{window}' hasn't implemented yet")
     # show the frame into the main window

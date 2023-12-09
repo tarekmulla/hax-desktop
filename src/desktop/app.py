@@ -24,7 +24,7 @@ class App(CTk):
     self.__init_components__()
     self.is_ready = True
 
-  def __set_size(self):
+  def __set_size_position(self):
     size = get_app_initial_size()
     window_height = size["height"]
     window_width = size["width"]
@@ -39,7 +39,7 @@ class App(CTk):
   def __init_components__(self):
     """Initialize the main form GUI components"""
     self.title("HaX Cybersecurity tool")
-    self.__set_size()
+    self.__set_size_position()
     self.resizable(True, True)
 
     # Set the application icon

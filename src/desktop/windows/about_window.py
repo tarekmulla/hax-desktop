@@ -6,7 +6,7 @@ from desktop.windows.base_window import BaseWindow
 class AboutWindow(BaseWindow):
   """About window to show information about the application"""
   def __init__(self, master):
-    super().__init__(master, "600x400", "About HaX")
+    super().__init__(master, 600, 400, "About HaX")
 
   def _init_main_frame(self):
     super()._init_main_frame()

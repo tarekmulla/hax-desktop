@@ -11,7 +11,7 @@ from desktop.windows.base_window import BaseWindow
 class SettingWindow(BaseWindow):
   """Setting frame"""
   def __init__(self, master):
-    super().__init__(master, "600x400", "Setting")
+    super().__init__(master, 600, 400, "Setting")
 
   def _init_main_frame(self):
     self.grid_columnconfigure(1, weight=1)

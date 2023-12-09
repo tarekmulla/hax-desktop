@@ -54,7 +54,7 @@ class BruteForce(CrackBase):
     return file_path
 
   def start(self, hash_pass, hash_algorithm: HashAlgorithm, stop_flag, update_status_func):
-    """Start brute-force password cracking process using hashcat"""
+    """Start brute-force password cracking process"""
     password = self.find_hash(hash_pass, hash_algorithm, stop_flag)
     if password:
       update_status_func(0, 0, f"Password found, the password is: {password}")

@@ -7,8 +7,7 @@ create-env:
 	python3 -m pip install -r src/desktop/requirements.txt
 
 install-tools:
-	@brew install python-tk && \
-	brew install hashcat
+	@brew install python-tk
 
 test:
 	@pytest --cov=src tests/

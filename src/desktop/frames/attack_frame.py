@@ -12,8 +12,8 @@ class AttackFrame(BaseFrame):
 
   attack_num = 0
 
-  def __init__(self, master, title: str, payloads_file: str):
-    super().__init__(master=master, title=title)
+  def __init__(self, root_window, title: str, payloads_file: str):
+    super().__init__(root_window=root_window, title=title)
     self.payloads_path = join(CORE_DIR, "assets", ".payloads", payloads_file)
     self.attack_manager: AttackManager = AttackManager()
 

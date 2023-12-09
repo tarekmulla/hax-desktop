@@ -9,9 +9,9 @@ from desktop.widgets.classes.menu_item import MenuItem
 
 class MainMenu(CTkFrame):
   """The main menu of the application"""
-  def __init__(self, master):
-    self.master = master
-    super().__init__(master, width=150, corner_radius=0)
+  def __init__(self, root_window):
+    self.root_window = root_window
+    super().__init__(root_window, width=150, corner_radius=0)
     self.current_window = Windows.NONE
 
   def init_items(self, event_func):

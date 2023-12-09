@@ -11,8 +11,8 @@ from desktop.frames.base_frame import BaseFrame
 class CloudSettingFrame(BaseFrame):
   """Cloud setting frame"""
 
-  def __init__(self, master: CTk):
-    super().__init__(master, "Cloud Configuration")
+  def __init__(self, root_window: CTk):
+    super().__init__(root_window, "Cloud Configuration")
 
   def __init_frame__(self):
     """Initialize frame components"""

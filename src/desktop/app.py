@@ -55,7 +55,7 @@ class App(CTk):
     self.grid_rowconfigure(0, weight=1)
 
     # init the main menu and place it in hte main window
-    self.main_menu.init_items(self._fill_frame)
+    self.main_menu.init_items(self._click_menu)
     self.main_menu.grid(column=0, row=0, sticky="nsew")
 
     # No frame is showing when app launch
@@ -63,45 +63,53 @@ class App(CTk):
 
   def is_window_open(self, window_type: type):
     """Check if a specific window type is open"""
-    for _, v in self.children.items():
-      if isinstance(v, window_type):
-        return v
+    for _, child in self.children.items():
+      if isinstance(child, window_type):
+        return child
     return None
 
-  def _fill_frame(self, event, window: Windows, is_window=True):
+  def _click_menu(self, event, window: Windows, is_window=True):
     # pylint: disable=unused-argument
-    """Fill a frame into the main window when the user select window"""
+    """Fill a frame into the main window when the user click on main menu"""
     if is_window:
-      if window == Windows.SETTING:
-        window = self.is_window_open(SettingWindow)
-        if window:
-          window.set_size_position()
-        else:
-          SettingWindow(self)
-      elif window == Windows.ABOUT:
-        window = self.is_window_open(AboutWindow)
-        if window:
-          window.set_size_position()
-        else:
-          AboutWindow(self)
+      self._fill_window(window)
     else:
-      # destroy the old frame
-      if self.current_frame:
-        self.current_frame.destroy()
-        self.current_frame = None
-      # initialize the new frame
-      if window == Windows.XSS:
-        self.current_frame = XssFrame(self)
-      elif window == Windows.SQLI:
-        self.current_frame = SqliFrame(self)
-      elif window == Windows.CRACK_PASS:
-        self.current_frame = CrackPasswordFrame(self)
-      else:
-        raise NotImplementedError(f"The frame '{window}' hasn't implemented yet")
-      # show the frame into the main window
-      self.current_frame.grid(row=0, column=1, sticky="nsew")
+      self._fill_frame(window)
 
     log_msg(f"{window} opened", LogLevel.INFO)
+
+  def _fill_frame(self, window: Windows):
+    """fill a frame into the main frame"""
+    # destroy the old frame
+    if self.current_frame:
+      self.current_frame.destroy()
+      self.current_frame = None
+    # initialize the new frame
+    if window == Windows.XSS:
+      self.current_frame = XssFrame(self)
+    elif window == Windows.SQLI:
+      self.current_frame = SqliFrame(self)
+    elif window == Windows.CRACK_PASS:
+      self.current_frame = CrackPasswordFrame(self)
+    else:
+      raise NotImplementedError(f"The frame '{window}' hasn't implemented yet")
+    # show the frame into the main window
+    self.current_frame.grid(row=0, column=1, sticky="nsew")
+
+  def _fill_window(self, window: Windows):
+    """open a new window or re-position an opened window"""
+    if window == Windows.SETTING:
+      window = self.is_window_open(SettingWindow)
+      if window:
+        window.set_size_position()
+      else:
+        SettingWindow(self)
+    elif window == Windows.ABOUT:
+      window = self.is_window_open(AboutWindow)
+      if window:
+        window.set_size_position()
+      else:
+        AboutWindow(self)
 
   def run(self):
     """run the main application interface"""

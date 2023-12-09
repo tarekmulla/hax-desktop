@@ -12,8 +12,8 @@ from desktop.frames.attack_frame import AttackFrame
 class XssFrame(AttackFrame):
   """CrossSite attack frame"""
 
-  def __init__(self, master: CTk):
-    super().__init__(master, "CrossSite Scripting (XSS) attack", "xss.txt")
+  def __init__(self, root_window: CTk):
+    super().__init__(root_window, "CrossSite Scripting (XSS) attack", "xss.txt")
 
   def __init_frame__(self):
     """Initialize frame components"""

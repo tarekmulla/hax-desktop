@@ -10,11 +10,11 @@ from core.utilities.config import get_color
 
 class BaseFrame(CTkFrame):
   """Frame for sub windows in the application"""
-  def __init__(self, master, title: str = ""):
-    self.master = master
-    super().__init__(master, fg_color="transparent")  # type: ignore[attr-defined]
+  def __init__(self, root_window, title: str = ""):
+    self.root_window = root_window
+    super().__init__(root_window, fg_color="transparent")  # type: ignore[attr-defined]
     if title:
-      self.master.title(title)  # type: ignore[attr-defined]
+      self.root_window.title(title)  # type: ignore[attr-defined]
     self.__init_frame__()
     self.set_default_input()
     self.is_ready = True

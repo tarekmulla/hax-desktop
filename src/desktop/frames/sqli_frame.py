@@ -12,8 +12,8 @@ from desktop.frames.attack_frame import AttackFrame
 class SqliFrame(AttackFrame):
   """SQLi attack frame"""
 
-  def __init__(self, master: CTk):
-    super().__init__(master, "SQL injection attack", "sqli.txt")
+  def __init__(self, root_window: CTk):
+    super().__init__(root_window, "SQL injection attack", "sqli.txt")
 
   def __init_frame__(self):
     """Initialize frame components"""

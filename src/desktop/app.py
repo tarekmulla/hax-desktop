@@ -19,8 +19,8 @@ class App(CTk):
   """The main application window"""
   def __init__(self):
     super().__init__()
-    self.main_menu = MainMenu(master=self)
-    self.menubar = MenuBar(master=self)
+    self.main_menu = MainMenu(root_window=self)
+    self.menubar = MenuBar(root_window=self)
     self.__init_components__()
     self.is_ready = True
 
@@ -61,14 +61,29 @@ class App(CTk):
     # No frame is showing when app launch
     self.current_frame = None
 
+  def is_window_open(self, window_type: type):
+    """Check if a specific window type is open"""
+    for _, v in self.children.items():
+      if isinstance(v, window_type):
+        return v
+    return None
+
   def _fill_frame(self, event, window: Windows, is_window=True):
     # pylint: disable=unused-argument
     """Fill a frame into the main window when the user select window"""
     if is_window:
       if window == Windows.SETTING:
-        SettingWindow(self)
+        window = self.is_window_open(SettingWindow)
+        if window:
+          window.set_size_position()
+        else:
+          SettingWindow(self)
       elif window == Windows.ABOUT:
-        AboutWindow(self)
+        window = self.is_window_open(AboutWindow)
+        if window:
+          window.set_size_position()
+        else:
+          AboutWindow(self)
     else:
       # destroy the old frame
       if self.current_frame:

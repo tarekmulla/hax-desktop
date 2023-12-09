@@ -16,8 +16,8 @@ from desktop.frames.base_frame import BaseFrame
 class CrackPasswordFrame(BaseFrame):
   """Crack password frame"""
 
-  def __init__(self, master: CTk):
-    super().__init__(master, "Crack Password")
+  def __init__(self, root_window: CTk):
+    super().__init__(root_window, "Crack Password")
     self.crack_manager = CrackPassManager()
 
   def _clear_frame(self):

@@ -26,11 +26,12 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+
       - name: Install dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          pip install -r src/core/requirements.txt
-          pip install -r src/desktop/requirements.txt
+          poetry install
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@master

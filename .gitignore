@@ -241,3 +241,4 @@ out/
 
 # local env files
 poetry.toml
+.vscode

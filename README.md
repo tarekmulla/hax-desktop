@@ -1,6 +1,6 @@
-[![Snyk Security](https://github.com/tarekmulla/hax/actions/workflows/snyk-security.yml/badge.svg)](https://github.com/tarekmulla/hax/actions/workflows/snyk-security.yml) [![Python Linting](https://github.com/tarekmulla/hax/actions/workflows/python-linting.yml/badge.svg)](https://github.com/tarekmulla/hax/actions/workflows/python-linting.yml) [![Unit Tests](https://github.com/tarekmulla/hax/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/tarekmulla/hax/actions/workflows/unit-tests.yml)
+[![Snyk Security](https://github.com/tarekmulla/hax-desktop/actions/workflows/snyk-security.yml/badge.svg)](https://github.com/tarekmulla/hax-desktop/actions/workflows/snyk-security.yml) [![Python Linting](https://github.com/tarekmulla/hax-desktop/actions/workflows/liniting.yml/badge.svg)](https://github.com/tarekmulla/hax-desktop/actions/workflows/liniting.yml) [![Unit Tests](https://github.com/tarekmulla/hax-desktop/actions/workflows/test.yml/badge.svg)](https://github.com/tarekmulla/hax-desktop/actions/workflows/test.yml)
 
-# HaX Tool
+# HaX Desktop tool
 
 HaX is an AI-powered Cybersecurity tool designed to detect website vulnerabilities. Its cloud connection enhances capabilities for advanced analytics and modeling.
 
@@ -12,11 +12,6 @@ HaX is an AI-powered Cybersecurity tool designed to detect website vulnerabiliti
 ## About the project
 
 This tool is expertly designed for ethical hacking, using intelligent cyber attack simulations to identify successful outcomes. It uploads results to the cloud for advanced data analytics, refining models for future attacks.
-
-The implemented attacks are:
-
-- CrossSite Scripting (XSS)
-- SQL injection (SQLi)
 
 
 ## 🧰 Tech stack
@@ -48,8 +43,10 @@ _**Note**: Those steps are working for both macOS, and Linux_
 - Download and install python latest version, [check here](https://www.python.org/downloads/).
 - Install pip, [check here](https://pip.pypa.io/en/stable/installation/).
 - Install TKinter `brew install python-tk` or `make install-tk`. _**Note**: You need to have brew installed_.
-- Set up a Python Virtual Environment (venv) by executing `make create-env` and then switch to the newly created venv using the command: `source ./.venv/bin/activate`. It's worth noting that the `make` command automatically installs the necessary libraries listed in [requirements.txt for core](./src/core/requirements.txt) and [requirements.txt for desktop](./src/desktop/requirements.txt). If you prefer using your local environment instead of venv, you can achieve the same by running `python -m pip install -r ./src/core/requirements.txt` and `python -m pip install -r ./src/desktop/requirements.txt` to install the required libraries.
-- The entry point for the desktop app is [./src/desktop/main.py](./src/main.py), You can start the application by running `make run` or `python3 ./src/desktop/main.py`.
+- Install poetry, [check here](https://python-poetry.org/docs/).
+- Install all dependencies by running  `poetry install`, the command will create a virtual environment, to understand how poetry works please refer to this [documentation](https://python-poetry.org/docs/configuration).
+- You can run pytest using command `poetry run pytest`
+- To run the package you can use command `poetry run python haxdesktop/main.py`
 
 
 ## Who do I talk to?

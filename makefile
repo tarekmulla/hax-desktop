@@ -8,7 +8,7 @@ install-tools:
 	@brew install python-tk
 
 run-desktop:
-	@python3 ./haxdesktop/main.py
+	@poetry run python haxdesktop/main.py
 
 package-desktop:
 	@scripts/release.sh

@@ -1,8 +1,7 @@
 """Class represent menu item"""
 from customtkinter import CTkButton, CTkImage
-from PIL import Image
-
 from haxcore import Windows, get_image_path
+from PIL import Image
 
 
 class MenuItem:

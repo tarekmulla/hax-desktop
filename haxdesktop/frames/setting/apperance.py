@@ -1,6 +1,7 @@
 """Appearance config frame"""
 # pylint: disable=R0801
 from customtkinter import CTk
+
 from haxdesktop.frames.base_frame import BaseFrame
 
 

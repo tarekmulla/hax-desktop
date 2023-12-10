@@ -1,6 +1,7 @@
 """The main menu of the application"""
 from customtkinter import CTkFrame
 from haxcore import Windows
+
 from haxdesktop.widgets.classes.menu_item import MenuItem
 
 

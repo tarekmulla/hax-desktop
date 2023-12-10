@@ -1,5 +1,6 @@
 """About window to show information about the application"""
 from haxcore import GENERAL, get_logo
+
 from haxdesktop.windows.base_window import BaseWindow
 
 

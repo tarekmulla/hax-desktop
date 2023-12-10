@@ -1,8 +1,9 @@
 """The main menu of the application"""
 from customtkinter import CTkFont, CTkFrame, CTkImage, CTkLabel
 from haxcore import Windows, get_icon
-from haxdesktop.widgets.classes.menu_item import MenuItem
 from PIL import Image
+
+from haxdesktop.widgets.classes.menu_item import MenuItem
 
 
 class MainMenu(CTkFrame):

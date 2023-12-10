@@ -4,6 +4,6 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
-    directory: "/src" # Location of package manifests
+    directory: "/haxdesktop" # Location of package manifests
     schedule:
       interval: "weekly"

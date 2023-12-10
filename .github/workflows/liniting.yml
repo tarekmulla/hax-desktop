@@ -1,0 +1,38 @@
+name: Python Linting
+
+on:
+  pull_request:
+  push:
+    branches: ["main" ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  linting-check:
+    name: Linting check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Check python linting
+        run: |
+          poetry run ./scripts/linting_check.sh

@@ -238,3 +238,6 @@ out/
 .logs/
 
 .rainbow_tables/
+
+# local env files
+poetry.toml

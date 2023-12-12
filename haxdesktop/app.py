@@ -2,11 +2,13 @@
 from tkinter import PhotoImage
 
 from customtkinter import CTk
-from haxcore import LogLevel, Windows, get_app_initial_size, get_app_min_size, get_icon, log_msg
+from haxcore import LogLevel, log_msg
 
+from haxdesktop.classes.enums import Windows
 from haxdesktop.frames.crack_password_frame import CrackPasswordFrame
 from haxdesktop.frames.sqli_frame import SqliFrame
 from haxdesktop.frames.xss_frame import XssFrame
+from haxdesktop.utilities.config import get_app_initial_size, get_app_min_size, get_icon
 from haxdesktop.widgets.main_menu import MainMenu
 from haxdesktop.widgets.menubar import MenuBar
 from haxdesktop.windows.about_window import AboutWindow

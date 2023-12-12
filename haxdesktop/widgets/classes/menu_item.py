@@ -1,7 +1,9 @@
 """Class represent menu item"""
 from customtkinter import CTkButton, CTkImage
-from haxcore import Windows, get_image_path
 from PIL import Image
+
+from haxdesktop.classes.enums import Windows
+from haxdesktop.utilities.config import get_image_path
 
 
 class MenuItem:

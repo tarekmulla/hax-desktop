@@ -2,8 +2,10 @@
 from webbrowser import open_new
 
 from customtkinter import CTkButton, CTkCheckBox, CTkEntry, CTkFrame, CTkImage, CTkLabel, CTkOptionMenu, CTkProgressBar, CTkTextbox
-from haxcore import Color, get_color
 from PIL import Image
+
+from haxdesktop.classes.enums import Color
+from haxdesktop.utilities.config import get_color
 
 
 class BaseFrame(CTkFrame):

@@ -3,7 +3,12 @@
 from tkinter import END, INSERT, StringVar
 
 from customtkinter import CTk
-from haxcore import BruteForce, CrackPassManager, CrackType, HashAlgorithm, PasswordRule, Rainbow, WordlistRules
+from haxcore.crack.brute_force import BruteForce
+from haxcore.crack.crack_pass_manager import CrackPassManager
+from haxcore.crack.password_rule import PasswordRule
+from haxcore.crack.rainbow import Rainbow
+from haxcore.crack.wordlist_rules import WordlistRules
+from haxcore.enums import CrackType, HashAlgorithm
 
 from haxdesktop.frames.base_frame import BaseFrame
 

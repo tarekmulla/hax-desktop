@@ -1,7 +1,7 @@
 """"load all application configuration files (YAML format)"""
 from os.path import dirname, exists, join
 
-from haxcore.classes.exception.application import ConfigException
+from haxcore.exception.application import ConfigException
 from yaml import safe_load
 
 from haxdesktop.classes.enums import Color, ConfigType

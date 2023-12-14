@@ -4,11 +4,16 @@ lint:
 test:
 	@poetry run pytest
 
+lock:
+	@poetry lock &&\
+	poetry install &&\
+	poetry lock
+
 install-tools:
 	@brew install python-tk
 
-run-desktop:
+run:
 	@poetry run python haxdesktop/main.py
 
-package-desktop:
+release:
 	@scripts/release.sh

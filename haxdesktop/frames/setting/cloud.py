@@ -3,7 +3,7 @@
 from tkinter import INSERT
 
 from customtkinter import CTk
-from haxcore import get_all_setting, update_setting
+from haxcore.db.tbl_setting import get_all_setting, update_setting
 
 from haxdesktop.frames.base_frame import BaseFrame
 

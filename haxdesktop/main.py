@@ -6,7 +6,9 @@ from sys import path
 path.append(dirname(dirname(__file__)))
 
 from app import App  # noqa: E402
-from haxcore import CORE_DIR, init_db, init_log  # noqa: E402
+from haxcore.db.base import init_db  # noqa: E402
+from haxcore.utilities.config import CORE_DIR  # noqa: E402
+from haxcore.utilities.log import init_log  # noqa: E402
 
 if __name__ == "__main__":
   # import the root of the package

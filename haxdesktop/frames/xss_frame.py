@@ -3,7 +3,8 @@
 from tkinter import INSERT
 
 from customtkinter import CTk
-from haxcore import AttackManager, AttackType, RequestType
+from haxcore.attacks.attack_manager import AttackManager
+from haxcore.enums import AttackType, RequestType
 
 from haxdesktop.frames.attack_frame import AttackFrame
 

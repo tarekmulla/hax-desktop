@@ -2,7 +2,8 @@
 from os.path import join
 from tkinter import END
 
-from haxcore import CORE_DIR, AttackManager
+from haxcore.attacks.attack_manager import AttackManager
+from haxcore.utilities.config import CORE_DIR
 
 from haxdesktop.frames.base_frame import BaseFrame
 

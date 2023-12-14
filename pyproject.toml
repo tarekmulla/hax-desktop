@@ -30,7 +30,7 @@ mypy = "^1.7.1"
 colorama = "^0.4.6"
 Pillow = "^10.1.0"
 twine = "^4.0.0"
-haxcore = "^0.0.16"
+haxcore = "^0.0.17"
 customtkinter = "^5.2.1"
 
 [tool.pylint]

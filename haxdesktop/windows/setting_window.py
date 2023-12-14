@@ -1,5 +1,5 @@
 """Setting Window"""
-from haxcore import LogLevel, log_msg
+from haxcore.utilities.log import LogLevel, log_msg
 
 from haxdesktop.classes.enums import Windows
 from haxdesktop.frames.setting.apperance import AppearanceSettingFrame

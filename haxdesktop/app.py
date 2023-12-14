@@ -2,7 +2,7 @@
 from tkinter import PhotoImage
 
 from customtkinter import CTk
-from haxcore import LogLevel, log_msg
+from haxcore.utilities.log import LogLevel, log_msg
 
 from haxdesktop.classes.enums import Windows
 from haxdesktop.frames.crack_password_frame import CrackPasswordFrame

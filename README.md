@@ -13,6 +13,9 @@ HaX is an AI-powered Cybersecurity tool designed to detect website vulnerabiliti
 
 This tool is expertly designed for ethical hacking, using intelligent cyber attack simulations to identify successful outcomes. It uploads results to the cloud for advanced data analytics, refining models for future attacks.
 
+<p align="center">
+  <img src="/docs/images/haxsec.png" alt="design" width="80%"/>
+</p>
 
 ## 🧰 Tech stack
 
